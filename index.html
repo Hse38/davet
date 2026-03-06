@@ -839,9 +839,6 @@
                 if (video.paused) {
                     // Start playing if paused
                     video.play().catch(err => console.log('Oynatma hatası:', err));
-                } else {
-                    // Skip if already playing
-                    openCurtain();
                 }
             }
 
