@@ -594,7 +594,8 @@
 
     <!-- Background Music -->
     <audio id="background-music" loop preload="none">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="Burcu Güneş &amp; Erhan Güleryüz - Biz Aşkı Meleklerden Çaldık (2007)  TRT Arşiv.mp3"
+            type="audio/mpeg">
     </audio>
 
     <!-- Music Toggle Button -->
@@ -863,6 +864,7 @@
         // ===== MUSIC TOGGLE =====
         const musicToggle = document.getElementById('music-toggle');
         const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.2; // Set soft volume
         let isMuted = true;
 
         musicToggle.addEventListener('click', () => {
