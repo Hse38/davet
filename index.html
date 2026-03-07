@@ -773,7 +773,7 @@
                 processFrame();
             });
 
-            // 30 ms rule to auto-play video
+            // 10 ms rule to auto-play video
             setTimeout(() => {
                 const playPromise = video.play();
                 if (playPromise !== undefined) {
@@ -790,7 +790,7 @@
                         }, { once: true });
                     });
                 }
-            }, 30);
+            }, 10);
 
             let isOpen = false;
             function openCurtain() {
