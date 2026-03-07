@@ -172,6 +172,59 @@
             position: relative;
             padding: 2rem;
             text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-character {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-bride {
+            top: 0;
+            left: 0;
+            width: clamp(180px, 30vw, 380px);
+            animation: floatBride 5s ease-in-out infinite;
+        }
+
+        .hero-groom {
+            bottom: 0;
+            right: 0;
+            width: clamp(160px, 25vw, 320px);
+            animation: floatGroom 5s ease-in-out infinite;
+            animation-delay: -1.5s;
+        }
+
+        .hero-character img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 30px rgba(88, 79, 71, 0.15));
+        }
+
+        @keyframes floatBride {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes floatGroom {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .names {
@@ -544,16 +597,26 @@
 
     <!-- Hero -->
     <section class="hero" id="hero">
-        <div data-aos="fade-down" data-aos-duration="1500">
+        <!-- Gelin sol üst -->
+        <div class="hero-character hero-bride" data-aos="fade-right" data-aos-duration="1500">
+            <img src="gelin.png" alt="Gelin">
+        </div>
+
+        <!-- Damat sağ alt -->
+        <div class="hero-character hero-groom" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="400">
+            <img src="damat.png" alt="Damat">
+        </div>
+
+        <div style="z-index:2;" data-aos="fade-down" data-aos-duration="1500">
             <h1 class="names">Nisa</h1>
         </div>
-        <div data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
+        <div style="z-index:2;" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
             <div class="accent-font ampersand">&</div>
         </div>
-        <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="600">
+        <div style="z-index:2;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="600">
             <h1 class="names">Haluk</h1>
         </div>
-        <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+        <div style="z-index:2;" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
             <p class="subtitle">Nişan Davetiyesi</p>
         </div>
         <div class="scroll-down"></div>
