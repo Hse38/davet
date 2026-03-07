@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 
 <head>
@@ -7,7 +7,7 @@
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>Nisa & Haluk - Nişan Davetiyesi</title>
+    <title>Nisa & Haluk - NiÅŸan Davetiyesi</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -386,6 +386,14 @@
             border-color: #a08568;
         }
 
+        .upload-area:focus-visible,
+        .btn-primary:focus-visible,
+        .btn-location:focus-visible,
+        .file-remove:focus-visible {
+            outline: 2px solid #8c6f4d;
+            outline-offset: 3px;
+        }
+
         .upload-icon {
             font-size: 3rem;
             margin-bottom: 12px;
@@ -414,12 +422,37 @@
             color: var(--text);
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 10px;
             border: 1px solid var(--border);
         }
 
         .file-item::before {
             content: '📸';
             margin-right: 10px;
+        }
+
+        .file-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-remove {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text-light);
+            border-radius: 999px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .file-remove:hover {
+            color: var(--text);
+            border-color: var(--accent);
         }
 
         .btn-primary {
@@ -584,13 +617,13 @@
                 <h1 class="names">Haluk</h1>
             </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                <p class="subtitle">Nişan Davetiyesi</p>
+                <p class="subtitle">NiÅŸan Davetiyesi</p>
             </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1100">
                 <p class="hero-date">26 Nisan 2026</p>
             </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1300">
-                <p class="hero-message">Bu mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.</p>
+                <p class="hero-message">Bu Ã¶zel gÃ¼nÃ¼mÃ¼zde sizleri aramÄ±zda gÃ¶rmekten mutluluk duyarÄ±z.</p>
             </div>
         </div>
         <div class="scroll-indicator"></div>
@@ -598,24 +631,24 @@
 
     <!-- Details -->
     <section class="section">
-        <h2 class="section-title" data-aos="fade-up">Tören Detayları</h2>
+        <h2 class="section-title" data-aos="fade-up">TÃ¶ren DetaylarÄ±</h2>
         <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
             <div class="detail-item" data-aos="fade-right" data-aos-delay="200">
-                <div class="detail-icon">📅</div>
+                <div class="detail-icon">ğŸ“…</div>
                 <div>
                     <div class="detail-label">Tarih</div>
                     <div class="detail-text">26 Nisan 2026</div>
                 </div>
             </div>
             <div class="detail-item" data-aos="fade-left" data-aos-delay="300">
-                <div class="detail-icon">✨</div>
+                <div class="detail-icon">âœ¨</div>
                 <div>
                     <div class="detail-label">Etkinlik</div>
-                    <div class="detail-text">Nişan Merasimi</div>
+                    <div class="detail-text">NiÅŸan Merasimi</div>
                 </div>
             </div>
             <div class="detail-item" data-aos="fade-right" data-aos-delay="400">
-                <div class="detail-icon">📍</div>
+                <div class="detail-icon">ğŸ“</div>
                 <div>
                     <div class="detail-label">Mekan</div>
                     <div class="detail-text">Tulipan Palazio</div>
@@ -635,7 +668,7 @@
         </div>
         <div class="map-info" data-aos="fade-up" data-aos-delay="200">
             <p><strong>Tulipan Davet Organizasyon</strong></p>
-            <p style="color:var(--text-light); margin-top:5px;">Tulipan Palazio, İstanbul</p>
+            <p style="color:var(--text-light); margin-top:5px;">Tulipan Palazio, Ä°stanbul</p>
             <a href="https://www.google.com/maps/place/Tulipan+Davet+Organizasyon+-+Tulipan+Palazio+Organizasyon/@41.09305181420149,28.9016860755183,17z"
                 target="_blank" class="btn-location" data-aos="zoom-in" data-aos-delay="300">Konuma Git</a>
         </div>
@@ -643,32 +676,33 @@
 
     <!-- Upload -->
     <section class="section">
-        <h2 class="section-title" data-aos="fade-up">Anıları Paylaşın</h2>
-        <p class="upload-desc" data-aos="fade-up" data-aos-delay="100">Bu özel gecede çektiğiniz fotoğrafları bizimle
-            paylaşabilirsiniz.</p>
+        <h2 class="section-title" data-aos="fade-up">AnÄ±larÄ± PaylaÅŸÄ±n</h2>
+        <p class="upload-desc" data-aos="fade-up" data-aos-delay="100">Bu Ã¶zel gÃ¼nÃ¼mÃ¼zde Ã§ektiÄŸiniz fotoÄŸraflarÄ± bizimle
+            paylaÅŸabilirsiniz.</p>
         <div class="upload-container" data-aos="zoom-in" data-aos-delay="200">
             <form id="upload-form">
                 <input type="file" id="file-input" accept="image/*" multiple style="display:none;" />
-                <label for="file-input" class="upload-area">
-                    <span class="upload-icon">📸</span>
-                    <span class="upload-text">Fotoğrafları seçmek için tıklayın</span>
+                <label for="file-input" class="upload-area" id="upload-area" role="button" tabindex="0"
+                    aria-label="FotoÄŸraf seÃ§">
+                    <span class="upload-icon">ğŸ“¸</span>
+                    <span class="upload-text">FotoÄŸraflarÄ± seÃ§mek iÃ§in tÄ±klayÄ±n</span>
                 </label>
                 <div id="file-list" class="file-list"></div>
-                <button type="submit" id="submit-btn" class="btn-primary" style="display:none;">Fotoğrafları
-                    Gönder</button>
+                <button type="submit" id="submit-btn" class="btn-primary" style="display:none;">FotoÄŸraflarÄ±
+                    GÃ¶nder</button>
             </form>
-            <div id="upload-status" class="upload-status"></div>
+            <div id="upload-status" class="upload-status" role="status" aria-live="polite"></div>
         </div>
     </section>
 
     <!-- Quote -->
     <section class="section">
         <div class="quote-container" data-aos="fade-in">
-            <div class="quote-icon">✧</div>
+            <div class="quote-icon">âœ§</div>
             <p class="quote-text">
-                Hayatımızın en özel gününde<br>
+                HayatÄ±mÄ±zÄ±n en Ã¶zel gÃ¼nÃ¼nde<br>
                 <span class="accent-word">sizleri de</span><br>
-                aramızda görmekten onur duyarız.
+                aramÄ±zda gÃ¶rmekten onur duyarÄ±z.
             </p>
         </div>
     </section>
@@ -687,6 +721,9 @@
             const c = document.getElementById('sparkle-canvas');
             const ctx = c.getContext('2d');
             let particles = [];
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const particleCount = reduceMotion ? 0 : (isMobile ? 18 : 40);
 
             function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
             window.addEventListener('resize', resize);
@@ -718,7 +755,7 @@
                 }
             }
 
-            for (let i = 0; i < 40; i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
             function animate() {
                 ctx.clearRect(0, 0, c.width, c.height);
@@ -783,7 +820,7 @@
                         ctx.fillStyle = "rgba(44,42,40,0.8)";
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                         ctx.font = '18px Montserrat'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
-                        ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
+                        ctx.fillText('Perdeyi aÃ§mak iÃ§in dokunun', canvas.width / 2, canvas.height / 2);
                         document.addEventListener('click', () => {
                             if (!isOpen && video.paused) video.play().catch(() => { });
                         }, { once: true });
@@ -814,29 +851,85 @@
 
         // ===== UPLOAD =====
         const fileInput = document.getElementById('file-input');
+        const uploadArea = document.getElementById('upload-area');
         const fileList = document.getElementById('file-list');
         const submitBtn = document.getElementById('submit-btn');
         const uploadForm = document.getElementById('upload-form');
         const uploadStatus = document.getElementById('upload-status');
+        // Google Apps Script Web App URL'ini buraya ekleyin
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8194qI5GT9ymun2BdZSA1r4R2akCaj8EAC2IAoyb_SuNxErINWElWwUN8p1g30whR/exec';
+        const MAX_FILE_SIZE_MB = 10;
+        const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
         let selectedFiles = [];
 
+        function getFileKey(file) {
+            return `${file.name}-${file.size}-${file.lastModified}`;
+        }
+
+        function renderSelectedFiles() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const row = document.createElement('div');
+                row.className = 'file-item';
+
+                const name = document.createElement('span');
+                name.className = 'file-name';
+                name.textContent = file.name;
+
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'file-remove';
+                removeBtn.textContent = 'Sil';
+                removeBtn.setAttribute('aria-label', `${file.name} dosyasÄ±nÄ± kaldÄ±r`);
+                removeBtn.addEventListener('click', () => {
+                    selectedFiles.splice(index, 1);
+                    renderSelectedFiles();
+                });
+
+                row.appendChild(name);
+                row.appendChild(removeBtn);
+                fileList.appendChild(row);
+            });
+
+            submitBtn.style.display = selectedFiles.length > 0 ? 'inline-block' : 'none';
+        }
+
+        uploadArea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+
         fileInput.addEventListener('change', (e) => {
+            let skippedLarge = 0;
             Array.from(e.target.files).forEach(f => {
                 if (f.type.startsWith('image/')) {
-                    selectedFiles.push(f);
-                    const d = document.createElement('div'); d.className = 'file-item'; d.textContent = f.name;
-                    fileList.appendChild(d);
+                    if (f.size > MAX_FILE_SIZE_BYTES) {
+                        skippedLarge++;
+                        return;
+                    }
+                    const alreadyAdded = selectedFiles.some(sf => getFileKey(sf) === getFileKey(f));
+                    if (!alreadyAdded) selectedFiles.push(f);
                 }
             });
-            if (selectedFiles.length > 0) submitBtn.style.display = 'inline-block';
+            if (skippedLarge > 0) {
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">${skippedLarge} dosya ${MAX_FILE_SIZE_MB}MB limitini astigi icin eklenmedi.</span>`;
+            }
+            renderSelectedFiles();
         });
 
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!selectedFiles.length) return;
-            submitBtn.disabled = true; submitBtn.textContent = 'Yükleniyor...'; uploadStatus.textContent = '';
+            submitBtn.disabled = true; submitBtn.textContent = 'YÃ¼kleniyor...'; uploadStatus.textContent = '';
 
-            const SCRIPT_URL = 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK';
+            if (!SCRIPT_URL || SCRIPT_URL === 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK') {
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">YÃ¼kleme servisi henÃ¼z baÄŸlanmadÄ±. SCRIPT_URL alanÄ±na geÃ§erli URL eklenmeli.</span>`;
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'FotoÄŸraflarÄ± GÃ¶nder';
+                return;
+            }
             let ok = 0, fail = 0;
 
             for (const file of selectedFiles) {
@@ -845,10 +938,11 @@
                     reader.onload = async function () {
                         const b64 = reader.result.split(',')[1];
                         try {
-                            if (SCRIPT_URL !== 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK') {
-                                const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: file.name, type: file.type, data: b64 }) });
-                                r.ok ? ok++ : fail++;
-                            } else { await new Promise(r => setTimeout(r, 1000)); ok++; }
+                            const r = await fetch(SCRIPT_URL, {
+                                method: 'POST',
+                                body: JSON.stringify({ name: file.name, type: file.type, data: b64 })
+                            });
+                            r.ok ? ok++ : fail++;
                             done(ok, fail, selectedFiles.length);
                         } catch (e) { fail++; done(ok, fail, selectedFiles.length); }
                     };
@@ -859,15 +953,18 @@
 
         function done(s, f, t) {
             if (s + f !== t) return;
-            submitBtn.textContent = 'Fotoğrafları Gönder'; submitBtn.disabled = false;
+            submitBtn.textContent = 'FotoÄŸraflarÄ± GÃ¶nder'; submitBtn.disabled = false;
             if (f === 0) {
-                uploadStatus.innerHTML = `<span style="color:var(--text)">🎉 ${s} fotoğraf başarıyla gönderildi!</span>`;
-                selectedFiles = []; fileList.innerHTML = ''; submitBtn.style.display = 'none'; fileInput.value = '';
+                uploadStatus.innerHTML = `<span style="color:var(--text)">ğŸ‰ ${s} fotoÄŸraf baÅŸarÄ±yla gÃ¶nderildi!</span>`;
+                selectedFiles = [];
+                fileInput.value = '';
+                renderSelectedFiles();
             } else {
-                uploadStatus.innerHTML = `<span style="color:var(--accent)">Bazı fotoğraflar yüklenemedi.</span>`;
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">Bazı fotoğrafları yükleme sırasında hata oluştu.</span>`;
             }
         }
     </script>
 </body>
 
 </html>
+
