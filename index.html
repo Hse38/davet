@@ -8,6 +8,16 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
     <title>Nisa & Haluk - Nişan Davetiyesi</title>
+    <meta name="description" content="Nisa ve Haluk'un nişan davetine davetlisiniz. Konum, tarih ve anı paylaşım alanı burada.">
+    <meta name="theme-color" content="#B59A7A">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nisa & Haluk - Nişan Davetiyesi">
+    <meta property="og:description" content="Nişan günümüzde sizleri aramızda görmekten mutluluk duyarız.">
+    <meta property="og:image" content="image.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Nisa & Haluk - Nişan Davetiyesi">
+    <meta property="twitter:description" content="Nişan günümüzde sizleri aramızda görmekten mutluluk duyarız.">
+    <meta property="twitter:image" content="image.png">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -548,6 +558,279 @@
             font-weight: 500;
         }
 
+        .btn-secondary {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(181, 154, 122, 0.42);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 240, 0.95));
+            color: #6a5d50;
+            font-size: 0.73rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            box-shadow: 0 6px 14px rgba(110, 98, 87, 0.07);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: #fff;
+            transform: translateY(-1px);
+        }
+
+        .memory-book {
+            margin-top: 26px;
+            text-align: left;
+            border-radius: 24px;
+            border: 1px solid rgba(181, 154, 122, 0.28);
+            background:
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55) 48%, rgba(255, 255, 255, 0.38)),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(244, 236, 225, 0.72));
+            box-shadow:
+                0 26px 48px rgba(110, 98, 87, 0.14),
+                0 2px 0 rgba(255, 255, 255, 0.7) inset;
+            padding: 22px 20px 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-book::before {
+            content: "";
+            position: absolute;
+            left: 16px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, rgba(214, 110, 110, 0.3), rgba(214, 110, 110, 0.16));
+        }
+
+        .memory-book::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(181, 154, 122, 0.16), rgba(255, 255, 255, 0));
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+            pointer-events: none;
+        }
+
+        .memory-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #5f5247;
+            margin-left: 14px;
+            margin-bottom: 2px;
+            line-height: 1;
+            letter-spacing: 0.2px;
+        }
+
+        .memory-subtitle {
+            margin-left: 14px;
+            color: #7f7266;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .book-topbar {
+            margin-left: 14px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .memory-author {
+            margin-left: 14px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        .memory-author-input {
+            width: 100%;
+            border: 1px solid rgba(181, 154, 122, 0.25);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #66594e;
+            padding: 11px 13px;
+            font-size: 0.84rem;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 12px rgba(110, 98, 87, 0.05);
+        }
+
+        .memory-author-input:focus {
+            outline: none;
+            border-color: rgba(181, 154, 122, 0.5);
+            box-shadow: 0 0 0 3px rgba(181, 154, 122, 0.12);
+        }
+
+        .page-indicator {
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .book-stage {
+            perspective: 1200px;
+            margin-left: 14px;
+        }
+
+        .book-page {
+            position: relative;
+            width: 100%;
+            min-height: 190px;
+            border: 1px solid rgba(181, 154, 122, 0.22);
+            border-radius: 14px;
+            background:
+                radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)),
+                repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(181, 154, 122, 0.16) 32px),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(251, 247, 240, 0.9));
+            box-shadow:
+                inset 0 2px 10px rgba(110, 98, 87, 0.08),
+                0 14px 26px rgba(110, 98, 87, 0.08);
+            transform-origin: left center;
+            transition: transform 0.34s cubic-bezier(.2, .8, .2, 1), box-shadow 0.34s;
+            will-change: transform;
+        }
+
+        .book-page.turn-next {
+            transform: rotateY(-5deg) translateX(2px);
+            box-shadow: 0 6px 16px rgba(110, 98, 87, 0.12);
+        }
+
+        .book-page.turn-prev {
+            transform: rotateY(5deg) translateX(-2px);
+            box-shadow: 0 6px 16px rgba(110, 98, 87, 0.12);
+        }
+
+        .book-page.haptic {
+            animation: pageHaptic 90ms ease;
+        }
+
+        @keyframes pageHaptic {
+            0% {
+                transform: translateX(0) scale(1);
+            }
+
+            35% {
+                transform: translateX(-0.5px) scale(0.999);
+            }
+
+            70% {
+                transform: translateX(0.5px) scale(1.0005);
+            }
+
+            100% {
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .memory-input {
+            width: 100%;
+            min-height: 190px;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 18px 34px 26px;
+            resize: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.22rem;
+            line-height: 2;
+            color: #564a3f;
+            background: transparent;
+            letter-spacing: 0.1px;
+        }
+
+        .memory-input::placeholder {
+            color: rgba(110, 98, 87, 0.52);
+            font-style: italic;
+        }
+
+        .memory-input:focus {
+            outline: none;
+        }
+
+        .page-signature {
+            position: absolute;
+            right: 14px;
+            bottom: 8px;
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            color: rgba(96, 82, 68, 0.76);
+            text-transform: uppercase;
+        }
+
+        .memory-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 12px;
+            margin-left: 14px;
+        }
+
+        .memory-count {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .memory-count.limit {
+            color: #a35d5d;
+        }
+
+        .memory-btn {
+            width: auto;
+            margin-top: 0;
+            padding: 12px 20px;
+            font-size: 0.73rem;
+            letter-spacing: 1.8px;
+        }
+
+        .memory-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(181, 154, 122, 0.35);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(247, 241, 232, 0.9));
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(110, 98, 87, 0.08);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: #fff;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .memory-status {
+            margin-top: 8px;
+            font-size: 0.84rem;
+            color: var(--text-light);
+            min-height: 18px;
+            margin-left: 14px;
+        }
+
         /* ===== QUOTE ===== */
         .quote-container {
             text-align: center;
@@ -629,6 +912,28 @@
             .map-wrapper iframe {
                 height: 300px !important;
             }
+
+            .memory-book {
+                padding: 18px 14px 14px;
+            }
+
+            .memory-title {
+                font-size: 1.7rem;
+            }
+
+            .book-topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .memory-toolbar {
+                flex-wrap: wrap;
+                row-gap: 12px;
+            }
+
+            .memory-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -643,12 +948,14 @@
 
     <!-- Music -->
     <audio id="background-music" loop preload="none">
+        <source src="music.ogg" type="audio/ogg">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Video Intro -->
     <div class="curtain-intro" id="curtain-intro">
-        <video muted playsinline id="curtain-video" preload="auto">
+        <video muted playsinline id="curtain-video" preload="metadata">
+            <source src="video.webm" type="video/webm">
             <source src="video.mp4" type="video/mp4">
         </video>
         <canvas id="curtain-canvas"></canvas>
@@ -727,7 +1034,7 @@
             <p><strong>Tulipan Davet Organizasyon</strong></p>
             <p style="color:var(--text-light); margin-top:5px;">Tulipan Palazio, İstanbul</p>
             <a href="https://www.google.com/maps/place/Tulipan+Davet+Organizasyon+-+Tulipan+Palazio+Organizasyon/@41.09305181420149,28.9016860755183,17z"
-                target="_blank" class="btn-location" data-aos="zoom-in" data-aos-delay="300">Konuma Git</a>
+                target="_blank" class="btn-location" id="map-link" data-aos="zoom-in" data-aos-delay="300">Konuma Git</a>
         </div>
     </section>
 
@@ -750,6 +1057,38 @@
                     Gönder</button>
             </form>
             <div id="upload-status" class="upload-status" role="status" aria-live="polite"></div>
+            <button type="button" id="retry-btn" class="btn-secondary" style="display:none;">Başarısızları Tekrar Dene</button>
+
+            <div class="memory-book" data-aos="fade-up" data-aos-delay="250">
+                <h3 class="memory-title">Anı Defteri</h3>
+                <p class="memory-subtitle">Bu güne dair bize küçük bir not bırakabilirsiniz.</p>
+                <div class="book-topbar">
+                    <span id="page-indicator" class="page-indicator">Sayfa 1 / 450</span>
+                    <button type="button" id="next-empty-btn" class="btn-secondary">Boş Sayfaya Geç</button>
+                </div>
+                <div class="memory-author">
+                    <input type="text" id="memory-author-input" class="memory-author-input" maxlength="60"
+                        placeholder="Notu kim bırakıyor? (Örn: Haluk / Ekinci Ailesi)" aria-label="Notu bırakan kişi veya aile">
+                </div>
+                <form id="memory-form">
+                    <div class="book-stage">
+                        <div class="book-page" id="book-page">
+                            <textarea id="memory-input" class="memory-input" maxlength="350"
+                                placeholder="Kalbinden geçen güzel bir cümle..." aria-label="Anı notu yaz"></textarea>
+                            <span id="page-signature" class="page-signature"></span>
+                        </div>
+                    </div>
+                    <div class="memory-toolbar">
+                        <div class="memory-nav">
+                            <button type="button" id="prev-page-btn" class="nav-btn" aria-label="Önceki sayfa">‹</button>
+                            <button type="button" id="next-page-btn" class="nav-btn" aria-label="Sonraki sayfa">›</button>
+                        </div>
+                        <span id="memory-count" class="memory-count">0 / 350</span>
+                        <button type="submit" id="memory-submit" class="btn-primary memory-btn">Sayfaya Yaz</button>
+                    </div>
+                </form>
+                <div id="memory-status" class="memory-status" role="status" aria-live="polite"></div>
+            </div>
         </div>
     </section>
 
@@ -773,6 +1112,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, easing: 'ease-out-cubic', once: true, offset: 50 });
+        const ANALYTICS_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+        function initAnalytics() {
+            if (!ANALYTICS_MEASUREMENT_ID || ANALYTICS_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_MEASUREMENT_ID}`;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () { window.dataLayer.push(arguments); };
+            gtag('js', new Date());
+            gtag('config', ANALYTICS_MEASUREMENT_ID);
+        }
+
+        function trackEvent(name, params = {}) {
+            if (typeof window.gtag === 'function') window.gtag('event', name, params);
+        }
+
+        initAnalytics();
 
         // ===== SPARKLE PARTICLES =====
         (function () {
@@ -912,19 +1270,169 @@
         const uploadArea = document.getElementById('upload-area');
         const fileList = document.getElementById('file-list');
         const submitBtn = document.getElementById('submit-btn');
+        const retryBtn = document.getElementById('retry-btn');
+        const mapLink = document.getElementById('map-link');
         const uploadForm = document.getElementById('upload-form');
         const uploadStatus = document.getElementById('upload-status');
+        const memoryForm = document.getElementById('memory-form');
+        const memoryInput = document.getElementById('memory-input');
+        const memoryAuthorInput = document.getElementById('memory-author-input');
+        const memoryCount = document.getElementById('memory-count');
+        const memoryStatus = document.getElementById('memory-status');
+        const memorySubmit = document.getElementById('memory-submit');
+        const pageIndicator = document.getElementById('page-indicator');
+        const pageSignature = document.getElementById('page-signature');
+        const bookPage = document.getElementById('book-page');
+        const prevPageBtn = document.getElementById('prev-page-btn');
+        const nextPageBtn = document.getElementById('next-page-btn');
+        const nextEmptyBtn = document.getElementById('next-empty-btn');
         // Google Apps Script Web App URL'ini buraya ekleyin
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8194qI5GT9ymun2BdZSA1r4R2akCaj8EAC2IAoyb_SuNxErINWElWwUN8p1g30whR/exec';
         const MAX_FILE_SIZE_MB = 10;
         const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
         const MAX_IMAGE_DIMENSION = 1600;
         const JPEG_QUALITY = 0.78;
+        const MAX_MEMORY_LENGTH = 350;
+        const MEMORY_PAGE_COUNT = 450;
+        const NOTE_STORAGE_KEY = 'davet_memory_book_pages_v1';
+        const UPLOAD_TIMEOUT_MS = 25000;
+        const MAX_UPLOAD_RETRY = 1;
+        const LOW_PERF_MODE =
+            window.matchMedia('(max-width: 768px)').matches ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let selectedFiles = [];
+        let failedFiles = [];
         let previewUrls = [];
+        let memoryPages = Array.from({ length: MEMORY_PAGE_COUNT }, () => ({ text: '', signedAt: '', signedBy: '' }));
+        let currentPage = 0;
+        let audioCtx = null;
 
         function getFileKey(file) {
             return `${file.name}-${file.size}-${file.lastModified}`;
+        }
+
+        function getLocalNotes() {
+            try {
+                const raw = localStorage.getItem(NOTE_STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : null;
+                if (!Array.isArray(parsed)) return Array.from({ length: MEMORY_PAGE_COUNT }, () => ({ text: '', signedAt: '', signedBy: '' }));
+                return Array.from({ length: MEMORY_PAGE_COUNT }, (_, i) => {
+                    const item = parsed[i] || {};
+                    return {
+                        text: typeof item.text === 'string' ? item.text : '',
+                        signedAt: typeof item.signedAt === 'string' ? item.signedAt : '',
+                        signedBy: typeof item.signedBy === 'string' ? item.signedBy : ''
+                    };
+                });
+            } catch (e) {
+                return Array.from({ length: MEMORY_PAGE_COUNT }, () => ({ text: '', signedAt: '', signedBy: '' }));
+            }
+        }
+
+        function saveLocalNotes(notes) {
+            localStorage.setItem(NOTE_STORAGE_KEY, JSON.stringify(notes));
+        }
+
+        function formatSignature(dateIso) {
+            if (!dateIso) return '';
+            const d = new Date(dateIso);
+            return d.toLocaleString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getAudioContext() {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return null;
+            if (!audioCtx) audioCtx = new Ctx();
+            return audioCtx;
+        }
+
+        function playPageFlipSound() {
+            if (LOW_PERF_MODE) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            if (ctx.state === 'suspended') ctx.resume().catch(() => { });
+
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1800, now);
+
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.04, now + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(460, now);
+            osc.frequency.exponentialRampToValueAtTime(220, now + 0.05);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.055);
+        }
+
+        function triggerHapticVisual() {
+            if (LOW_PERF_MODE) return;
+            if (!bookPage) return;
+            bookPage.classList.remove('haptic');
+            requestAnimationFrame(() => {
+                bookPage.classList.add('haptic');
+                setTimeout(() => bookPage.classList.remove('haptic'), 110);
+            });
+        }
+
+        function animatePage(direction) {
+            if (!bookPage) return;
+            const cls = direction === 'prev' ? 'turn-prev' : 'turn-next';
+            bookPage.classList.remove('turn-next', 'turn-prev');
+            requestAnimationFrame(() => {
+                bookPage.classList.add(cls);
+                setTimeout(() => bookPage.classList.remove(cls), 230);
+            });
+            playPageFlipSound();
+            triggerHapticVisual();
+        }
+
+        function renderMemoryPage() {
+            const page = memoryPages[currentPage] || { text: '', signedAt: '', signedBy: '' };
+            memoryInput.value = page.text || '';
+            memoryAuthorInput.value = page.signedBy || '';
+            pageSignature.textContent = page.signedAt
+                ? `${(page.signedBy || 'İsimsiz').toUpperCase()} · ${formatSignature(page.signedAt)}`
+                : '';
+            pageIndicator.textContent = `Sayfa ${currentPage + 1} / ${MEMORY_PAGE_COUNT}`;
+            prevPageBtn.disabled = currentPage === 0;
+            nextPageBtn.disabled = currentPage === MEMORY_PAGE_COUNT - 1;
+            updateMemoryCount();
+        }
+
+        function goToPage(targetIndex, direction = 'next') {
+            const safe = Math.max(0, Math.min(MEMORY_PAGE_COUNT - 1, targetIndex));
+            if (safe === currentPage) return;
+            currentPage = safe;
+            animatePage(direction);
+            renderMemoryPage();
+            trackEvent('memory_page_change', { page: currentPage + 1 });
+        }
+
+        function findNextEmptyPage(startIndex) {
+            for (let i = startIndex + 1; i < MEMORY_PAGE_COUNT; i++) {
+                if (!memoryPages[i].text.trim()) return i;
+            }
+            for (let i = 0; i <= startIndex; i++) {
+                if (!memoryPages[i].text.trim()) return i;
+            }
+            return -1;
+        }
+
+        function updateMemoryCount() {
+            if (!memoryInput || !memoryCount) return;
+            const current = memoryInput.value.length;
+            memoryCount.textContent = `${current} / ${MAX_MEMORY_LENGTH}`;
+            memoryCount.classList.toggle('limit', current > MAX_MEMORY_LENGTH - 35);
         }
 
         function renderSelectedFiles() {
@@ -1004,6 +1512,17 @@
             });
         }
 
+        async function fetchWithTimeout(url, options, timeoutMs) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                return response;
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        }
+
         async function prepareUploadPayload(file) {
             const originalDataUrl = await readFileAsDataURL(file);
             if (!file.type.startsWith('image/')) {
@@ -1047,6 +1566,66 @@
             }
         });
 
+        if (mapLink) {
+            mapLink.addEventListener('click', () => {
+                trackEvent('map_click', { location: 'tulipan_palazio' });
+            });
+        }
+
+        memoryPages = getLocalNotes();
+        updateMemoryCount();
+        renderMemoryPage();
+
+        if (memoryInput) {
+            memoryInput.addEventListener('input', updateMemoryCount);
+        }
+
+        if (prevPageBtn) {
+            prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1, 'prev'));
+        }
+
+        if (nextPageBtn) {
+            nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1, 'next'));
+        }
+
+        if (nextEmptyBtn) {
+            nextEmptyBtn.addEventListener('click', () => {
+                const nextEmpty = findNextEmptyPage(currentPage);
+                if (nextEmpty === -1) {
+                    memoryStatus.textContent = 'Defterde boş sayfa kalmadı.';
+                    return;
+                }
+                memoryStatus.textContent = '';
+                goToPage(nextEmpty, 'next');
+            });
+        }
+
+        if (memoryForm) {
+            memoryForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const note = memoryInput.value.trim();
+                const signedBy = (memoryAuthorInput.value || '').trim();
+                if (note.length < 4) {
+                    memoryStatus.textContent = 'Biraz daha uzun bir not yazabilir misiniz?';
+                    return;
+                }
+
+                memorySubmit.disabled = true;
+                memorySubmit.textContent = 'Kaydediliyor...';
+                memoryStatus.textContent = 'Notunuz işleniyor...';
+
+                const signedAt = new Date().toISOString();
+                memoryPages[currentPage] = { text: note, signedAt, signedBy };
+                saveLocalNotes(memoryPages);
+                memorySubmit.disabled = false;
+                memorySubmit.textContent = 'Sayfaya Yaz';
+                memoryStatus.textContent = `Notunuz ${currentPage + 1}. sayfaya eklendi.`;
+                triggerHapticVisual();
+                renderMemoryPage();
+                trackEvent('memory_note_submit', { page: currentPage + 1 });
+            });
+        }
+
         fileInput.addEventListener('change', (e) => {
             let skippedLarge = 0;
             Array.from(e.target.files).forEach(f => {
@@ -1062,7 +1641,19 @@
             if (skippedLarge > 0) {
                 uploadStatus.innerHTML = `<span style="color:var(--accent)">${skippedLarge} dosya ${MAX_FILE_SIZE_MB}MB limitini aştığı için eklenmedi.</span>`;
             }
+            failedFiles = [];
+            retryBtn.style.display = 'none';
             renderSelectedFiles();
+        });
+
+        retryBtn.addEventListener('click', () => {
+            if (!failedFiles.length) return;
+            selectedFiles = [...failedFiles];
+            failedFiles = [];
+            retryBtn.style.display = 'none';
+            renderSelectedFiles();
+            trackEvent('upload_retry_click', { count: selectedFiles.length });
+            uploadForm.requestSubmit();
         });
 
         uploadForm.addEventListener('submit', async (e) => {
@@ -1078,20 +1669,35 @@
             }
             let ok = 0, fail = 0;
             const total = selectedFiles.length;
+            failedFiles = [];
+            trackEvent('upload_start', { count: total });
 
             for (let i = 0; i < total; i++) {
                 const file = selectedFiles[i];
-                uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} hazırlanıyor...</span>`;
-                try {
-                    const payload = await prepareUploadPayload(file);
-                    uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} yükleniyor...</span>`;
-                    const r = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({ name: file.name, type: payload.type, data: payload.data })
-                    });
-                    r.ok ? ok++ : fail++;
-                } catch (e) {
-                    fail++;
+                let uploaded = false;
+                for (let attempt = 0; attempt <= MAX_UPLOAD_RETRY && !uploaded; attempt++) {
+                    uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} hazırlanıyor...</span>`;
+                    try {
+                        const payload = await prepareUploadPayload(file);
+                        const attemptText = attempt > 0 ? ` (tekrar ${attempt})` : '';
+                        uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} yükleniyor${attemptText}...</span>`;
+                        const r = await fetchWithTimeout(SCRIPT_URL, {
+                            method: 'POST',
+                            body: JSON.stringify({ name: file.name, type: payload.type, data: payload.data })
+                        }, UPLOAD_TIMEOUT_MS);
+                        if (r.ok) {
+                            ok++;
+                            uploaded = true;
+                        } else if (attempt === MAX_UPLOAD_RETRY) {
+                            fail++;
+                            failedFiles.push(file);
+                        }
+                    } catch (e) {
+                        if (attempt === MAX_UPLOAD_RETRY) {
+                            fail++;
+                            failedFiles.push(file);
+                        }
+                    }
                 }
             }
             done(ok, fail, total);
@@ -1102,11 +1708,15 @@
             submitBtn.textContent = 'Fotoğrafları Gönder'; submitBtn.disabled = false;
             if (f === 0) {
                 uploadStatus.innerHTML = `<span style="color:var(--text)">🎉 ${s} fotoğraf başarıyla gönderildi!</span>`;
+                trackEvent('upload_success', { count: s });
                 selectedFiles = [];
                 fileInput.value = '';
                 renderSelectedFiles();
+                retryBtn.style.display = 'none';
             } else {
-                uploadStatus.innerHTML = `<span style="color:var(--accent)">Bazı fotoğrafları yükleme sırasında hata oluştu.</span>`;
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">${f} dosya yüklenemedi. Tekrar deneyebilirsiniz.</span>`;
+                trackEvent('upload_partial_or_fail', { success_count: s, fail_count: f });
+                retryBtn.style.display = failedFiles.length ? 'inline-block' : 'none';
             }
         }
     </script>
