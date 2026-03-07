@@ -10,37 +10,23 @@
     <title>Nisa & Haluk - Nişan Davetiyesi</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&display=swap"
         rel="stylesheet">
 
-    <!-- AOS CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
     <style>
         :root {
-            /* Premium Soft & Elegant Theme */
-            --bg-main: #FDFBF7;
-            --bg-accent: #F4EAE2;
-            --bg-card: rgba(253, 251, 247, 0.85);
-
-            --gold: #C0A996;
-            --gold-light: #E0D3C8;
-            --gold-dark: #9F8570;
-
-            --text-dark: #584F47;
-            --text-muted: #958B82;
-            --blush: #EADBD5;
-
-            --border-light: rgba(192, 169, 150, 0.3);
-            --shadow-soft: 0 15px 40px rgba(88, 79, 71, 0.05);
-
-            --font-headings: 'Cormorant Garamond', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --font-accent: 'Great Vibes', cursive;
+            --bg: #F4EEE8;
+            --text: #6E6257;
+            --accent: #B59A7A;
+            --text-light: #8a7f73;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --border: rgba(181, 154, 122, 0.2);
+            --shadow: 0 10px 40px rgba(110, 98, 87, 0.06);
         }
 
         * {
@@ -54,69 +40,34 @@
         }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-main);
-            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(180deg, #f5efe8 0%, #efe5da 100%);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-            position: relative;
+            opacity: 0;
+            animation: pageIn 1.5s ease forwards;
         }
 
-        /* Ambient floating background styling */
-        .ambient-bg {
+        @keyframes pageIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ===== SPARKLE CANVAS ===== */
+        #sparkle-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            overflow: hidden;
-            background: linear-gradient(135deg, #FDFBF7 0%, #F4EAE2 100%);
+            z-index: 0;
         }
 
-        .ambient-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.5;
-            animation: float 25s infinite ease-in-out alternate;
-        }
-
-        .blob-1 {
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: #E8DCC8;
-        }
-
-        .blob-2 {
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: #EADBD5;
-            animation-duration: 28s;
-            animation-direction: alternate-reverse;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
-
-            100% {
-                transform: translate(-20px, 20px) scale(0.95);
-            }
-        }
-
-        /* ===== CURTAIN VIDEO INTRO ===== */
+        /* ===== CURTAIN ===== */
         .curtain-intro {
             position: fixed;
             top: 0;
@@ -147,22 +98,7 @@
             object-fit: cover;
         }
 
-
-
-        /* ===== TYPOGRAPHY ===== */
-        h1,
-        h2,
-        h3 {
-            font-family: var(--font-headings);
-            font-weight: 400;
-        }
-
-        .accent-font {
-            font-family: var(--font-accent);
-            color: var(--gold-dark);
-        }
-
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -175,6 +111,11 @@
             overflow: hidden;
         }
 
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
         .hero-character {
             position: absolute;
             z-index: 1;
@@ -184,38 +125,26 @@
         .hero-bride {
             top: 0;
             left: 0;
-            width: clamp(180px, 30vw, 380px);
-            animation: floatBride 5s ease-in-out infinite;
+            width: clamp(160px, 28vw, 360px);
+            animation: floatSlow 6s ease-in-out infinite;
         }
 
         .hero-groom {
             bottom: 0;
             right: 0;
-            width: clamp(160px, 25vw, 320px);
-            animation: floatGroom 5s ease-in-out infinite;
-            animation-delay: -1.5s;
+            width: clamp(140px, 22vw, 300px);
+            animation: floatSlow 6s ease-in-out infinite;
+            animation-delay: -2s;
         }
 
         .hero-character img {
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 10px 30px rgba(88, 79, 71, 0.15));
+            filter: drop-shadow(0 8px 25px rgba(110, 98, 87, 0.12));
         }
 
-        @keyframes floatBride {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-12px);
-            }
-        }
-
-        @keyframes floatGroom {
+        @keyframes floatSlow {
 
             0%,
             100% {
@@ -228,98 +157,117 @@
         }
 
         .names {
-            font-size: clamp(4rem, 12vw, 7rem);
-            color: var(--text-dark);
-            line-height: 1.1;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 20px rgba(253, 251, 247, 0.8);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 7.5rem);
+            color: var(--text);
+            line-height: 1.05;
+            letter-spacing: 3px;
+            font-weight: 400;
         }
 
         .ampersand {
-            font-size: clamp(3.5rem, 10vw, 5.5rem);
-            line-height: 0.8;
-            margin: 10px 0;
-            opacity: 0.9;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 9vw, 5rem);
+            color: var(--accent);
+            line-height: 1;
+            margin: 5px 0;
         }
 
         .subtitle {
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            color: var(--text-muted);
-            margin-top: 30px;
-            letter-spacing: 8px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 25px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             font-weight: 300;
         }
 
-        .scroll-down {
+        .hero-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            color: var(--accent);
+            margin-top: 18px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .hero-message {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: var(--text-light);
+            margin-top: 20px;
+            max-width: 400px;
+            line-height: 1.7;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .scroll-indicator {
             position: absolute;
-            bottom: 40px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
             width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--gold), transparent);
-            animation: pulseLine 2s infinite;
-            opacity: 0.6;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollPulse 2s infinite;
         }
 
-        @keyframes pulseLine {
+        @keyframes scrollPulse {
             0% {
                 opacity: 0;
-                transform: translate(-50%, -15px);
+                transform: translate(-50%, -10px);
             }
 
             50% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
 
             100% {
                 opacity: 0;
-                transform: translate(-50%, 15px);
+                transform: translate(-50%, 10px);
             }
         }
 
-        /* ===== COMMON SECTION ===== */
+        /* ===== SECTIONS ===== */
         .section {
-            padding: 100px 20px;
-            position: relative;
-            max-width: 1200px;
+            padding: 90px 20px;
+            max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
             text-align: center;
-            margin-bottom: 3.5rem;
-            color: var(--text-dark);
-            letter-spacing: 1px;
+            margin-bottom: 3rem;
+            color: var(--text);
+            font-weight: 400;
         }
 
-        /* ===== EVENT DETAILS ===== */
+        /* ===== DETAILS CARD ===== */
         .glass-card {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 20px;
             padding: 50px;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
+            box-shadow: var(--shadow);
+            transition: transform 0.4s ease;
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(88, 79, 71, 0.08);
+            transform: translateY(-4px);
         }
 
         .detail-item {
             display: flex;
             align-items: center;
-            gap: 25px;
-            margin-bottom: 35px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .detail-item:last-child {
@@ -327,132 +275,146 @@
         }
 
         .detail-icon {
-            font-size: 1.8rem;
-            color: var(--gold-dark);
-            width: 60px;
-            height: 60px;
+            font-size: 1.6rem;
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #fff;
             border-radius: 50%;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border);
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
             transition: transform 0.3s;
         }
 
         .detail-item:hover .detail-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.08);
         }
 
         .detail-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.75rem;
+            color: var(--text-light);
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 500;
         }
 
         .detail-text {
-            font-family: var(--font-headings);
-            font-size: 1.8rem;
-            color: var(--text-dark);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--text);
         }
 
-        /* ===== LOCATION SECTION (MAP) ===== */
-        .map-section {
-            background: transparent;
-        }
-
+        /* ===== MAP ===== */
         .map-wrapper {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            border: 8px solid rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            border: 6px solid rgba(255, 255, 255, 0.5);
         }
 
-        .map-details {
+        .map-info {
             text-align: center;
             margin-top: 20px;
-            font-size: 1.1rem;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
-        /* ===== PHOTO UPLOAD SECTION ===== */
+        .btn-location {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 35px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(181, 154, 122, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-location:hover {
+            background: #a08568;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(181, 154, 122, 0.45);
+        }
+
+        /* ===== UPLOAD ===== */
         .upload-container {
-            max-width: 600px;
+            max-width: 550px;
             margin: 0 auto;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             text-align: center;
         }
 
         .upload-desc {
             text-align: center;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 25px;
+            color: var(--text-light);
+            font-size: 1rem;
         }
 
         .upload-area {
-            border: 2px dashed var(--gold);
-            border-radius: 15px;
-            padding: 50px 20px;
+            border: 2px dashed var(--accent);
+            border-radius: 14px;
+            padding: 45px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .upload-area:hover {
             background: #fff;
             transform: translateY(-2px);
-            border-color: var(--gold-dark);
-            box-shadow: 0 5px 20px rgba(192, 169, 150, 0.15);
+            border-color: #a08568;
         }
 
         .upload-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            color: var(--gold-dark);
-            opacity: 0.8;
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.7;
         }
 
         .upload-text {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 400;
         }
 
         .file-list {
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: left;
-            max-height: 200px;
+            max-height: 180px;
             overflow-y: auto;
         }
 
         .file-item {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 14px;
             border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 0.82rem;
+            color: var(--text);
             display: flex;
             align-items: center;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border);
         }
 
         .file-item::before {
@@ -462,27 +424,26 @@
 
         .btn-primary {
             display: inline-block;
-            margin-top: 25px;
-            padding: 15px 40px;
-            background: var(--gold-dark);
+            margin-top: 20px;
+            padding: 14px 35px;
+            background: var(--accent);
             color: #fff;
             border: none;
             border-radius: 30px;
-            font-family: var(--font-body);
+            font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(159, 133, 112, 0.3);
+            box-shadow: 0 5px 15px rgba(181, 154, 122, 0.3);
             width: 100%;
         }
 
         .btn-primary:hover:not(:disabled) {
-            background: #8b715d;
+            background: #a08568;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(159, 133, 112, 0.4);
         }
 
         .btn-primary:disabled {
@@ -492,78 +453,91 @@
         }
 
         .upload-status {
-            margin-top: 20px;
-            font-size: 0.95rem;
+            margin-top: 18px;
+            font-size: 0.9rem;
             font-weight: 500;
-            line-height: 1.5;
         }
 
-        /* ===== QUOTE SECTION ===== */
+        /* ===== QUOTE ===== */
         .quote-container {
             text-align: center;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 80px 40px;
+            padding: 60px 30px;
         }
 
         .quote-icon {
-            font-family: var(--font-accent);
-            font-size: 3rem;
-            color: var(--gold-dark);
-            margin-bottom: 20px;
-            opacity: 0.8;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            opacity: 0.7;
         }
 
         .quote-text {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
             font-style: italic;
-            color: var(--text-dark);
+            color: var(--text);
             line-height: 1.5;
+        }
+
+        .quote-text .accent-word {
+            font-family: 'Great Vibes', cursive;
+            color: var(--accent);
+            font-size: 1.15em;
         }
 
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            padding: 60px 20px 40px;
-            border-top: 1px solid var(--border-light);
+            padding: 50px 20px 35px;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
         }
 
         .footer-logo {
-            font-family: var(--font-headings);
-            font-size: 2.2rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--text);
             letter-spacing: 4px;
+            margin-bottom: 8px;
         }
 
         .footer-date {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--text-light);
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .glass-card {
-                padding: 40px 20px;
+                padding: 35px 20px;
             }
 
             .detail-item {
                 flex-direction: column;
                 text-align: center;
-                gap: 15px;
+                gap: 12px;
             }
 
             .section {
-                padding: 70px 20px;
+                padding: 60px 20px;
             }
 
-            .map-wrapper {
-                height: 350px;
+            .hero-bride {
+                width: clamp(120px, 35vw, 200px);
+            }
+
+            .hero-groom {
+                width: clamp(110px, 28vw, 180px);
             }
 
             .map-wrapper iframe {
-                height: 350px !important;
+                height: 300px !important;
             }
         }
     </style>
@@ -571,21 +545,16 @@
 
 <body>
     <div id="initial-overlay"
-        style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#111; z-index:9998; transition: opacity 0.5s ease; pointer-events:none;">
+        style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:#111;z-index:9998;transition:opacity 0.5s ease;pointer-events:none;">
     </div>
 
-    <!-- Floating Backgrounds -->
-    <div class="ambient-bg">
-        <div class="ambient-blob blob-1"></div>
-        <div class="ambient-blob blob-2"></div>
-    </div>
+    <!-- Sparkle Particles -->
+    <canvas id="sparkle-canvas"></canvas>
 
-    <!-- Background Music -->
+    <!-- Music -->
     <audio id="background-music" loop preload="none">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
-
-
 
     <!-- Video Intro -->
     <div class="curtain-intro" id="curtain-intro">
@@ -597,29 +566,34 @@
 
     <!-- Hero -->
     <section class="hero" id="hero">
-        <!-- Gelin sol üst -->
-        <div class="hero-character hero-bride" data-aos="fade-right" data-aos-duration="1500">
+        <div class="hero-character hero-bride" data-aos="fade-right" data-aos-duration="1800">
             <img src="gelin.png" alt="Gelin">
         </div>
-
-        <!-- Damat sağ alt -->
-        <div class="hero-character hero-groom" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="400">
+        <div class="hero-character hero-groom" data-aos="fade-left" data-aos-duration="1800" data-aos-delay="400">
             <img src="damat.png" alt="Damat">
         </div>
 
-        <div style="z-index:2;" data-aos="fade-down" data-aos-duration="1500">
-            <h1 class="names">Nisa</h1>
+        <div class="hero-text">
+            <div data-aos="fade-down" data-aos-duration="1500">
+                <h1 class="names">Nisa</h1>
+            </div>
+            <div data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
+                <div class="ampersand">&</div>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="600">
+                <h1 class="names">Haluk</h1>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
+                <p class="subtitle">Nişan Davetiyesi</p>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1100">
+                <p class="hero-date">26 Nisan 2026</p>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1300">
+                <p class="hero-message">Bu mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.</p>
+            </div>
         </div>
-        <div style="z-index:2;" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
-            <div class="accent-font ampersand">&</div>
-        </div>
-        <div style="z-index:2;" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="600">
-            <h1 class="names">Haluk</h1>
-        </div>
-        <div style="z-index:2;" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
-            <p class="subtitle">Nişan Davetiyesi</p>
-        </div>
-        <div class="scroll-down"></div>
+        <div class="scroll-indicator"></div>
     </section>
 
     <!-- Details -->
@@ -640,54 +614,60 @@
                     <div class="detail-text">Nişan Merasimi</div>
                 </div>
             </div>
+            <div class="detail-item" data-aos="fade-right" data-aos-delay="400">
+                <div class="detail-icon">📍</div>
+                <div>
+                    <div class="detail-label">Mekan</div>
+                    <div class="detail-text">Tulipan Palazio</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Location Map -->
-    <section class="section map-section">
+    <!-- Map -->
+    <section class="section">
         <h2 class="section-title" data-aos="fade-up">Konum</h2>
         <div class="map-wrapper" data-aos="zoom-in" data-aos-delay="150">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.8990705792403!2d28.9016860755183!3d41.09305181420149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab1638fd51b65%3A0x75dc7988c453b23d!2sTulipan%20Davet%20Organizasyon%20-%20Tulipan%20Palazio%20Organizasyon!5e0!3m2!1str!2str!4v1772861244209!5m2!1str!2str"
-                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="map-details" data-aos="fade-up" data-aos-delay="200">
+        <div class="map-info" data-aos="fade-up" data-aos-delay="200">
             <p><strong>Tulipan Davet Organizasyon</strong></p>
-            <p>Tulipan Palazio Organizasyon, İstanbul</p>
+            <p style="color:var(--text-light); margin-top:5px;">Tulipan Palazio, İstanbul</p>
+            <a href="https://www.google.com/maps/place/Tulipan+Davet+Organizasyon+-+Tulipan+Palazio+Organizasyon/@41.09305181420149,28.9016860755183,17z"
+                target="_blank" class="btn-location" data-aos="zoom-in" data-aos-delay="300">Konuma Git</a>
         </div>
     </section>
 
-    <!-- Photo Upload -->
+    <!-- Upload -->
     <section class="section">
         <h2 class="section-title" data-aos="fade-up">Anıları Paylaşın</h2>
-        <p class="upload-desc" data-aos="fade-up" data-aos-delay="100">
-            Bu özel gecede çektiğiniz fotoğrafları bizimle paylaşabilirsiniz.
-        </p>
-
+        <p class="upload-desc" data-aos="fade-up" data-aos-delay="100">Bu özel gecede çektiğiniz fotoğrafları bizimle
+            paylaşabilirsiniz.</p>
         <div class="upload-container" data-aos="zoom-in" data-aos-delay="200">
             <form id="upload-form">
-                <input type="file" id="file-input" accept="image/*" multiple style="display: none;" />
+                <input type="file" id="file-input" accept="image/*" multiple style="display:none;" />
                 <label for="file-input" class="upload-area">
                     <span class="upload-icon">📸</span>
                     <span class="upload-text">Fotoğrafları seçmek için tıklayın</span>
                 </label>
                 <div id="file-list" class="file-list"></div>
-                <button type="submit" id="submit-btn" class="btn-primary" style="display: none;">Fotoğrafları
+                <button type="submit" id="submit-btn" class="btn-primary" style="display:none;">Fotoğrafları
                     Gönder</button>
             </form>
             <div id="upload-status" class="upload-status"></div>
         </div>
     </section>
 
-    <!-- Quote & Footer -->
+    <!-- Quote -->
     <section class="section">
         <div class="quote-container" data-aos="fade-in">
             <div class="quote-icon">✧</div>
             <p class="quote-text">
                 Hayatımızın en özel gününde<br>
-                <span class="accent-font">sizleri de</span><br>
+                <span class="accent-word">sizleri de</span><br>
                 aramızda görmekten onur duyarız.
             </p>
         </div>
@@ -698,95 +678,114 @@
         <div class="footer-date">26 Nisan 2026</div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, easing: 'ease-out-cubic', once: true, offset: 50 });
 
-        // ===== CURTAIN LOGIC =====
+        // ===== SPARKLE PARTICLES =====
+        (function () {
+            const c = document.getElementById('sparkle-canvas');
+            const ctx = c.getContext('2d');
+            let particles = [];
+
+            function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * c.width;
+                    this.y = Math.random() * c.height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedY = -(Math.random() * 0.3 + 0.1);
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                    this.fadeDir = Math.random() > 0.5 ? 1 : -1;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.opacity += this.fadeDir * 0.003;
+                    if (this.opacity <= 0.05 || this.opacity >= 0.5) this.fadeDir *= -1;
+                    if (this.y < -10) this.reset();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(181, 154, 122, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, c.width, c.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ===== CURTAIN =====
         function initCurtain() {
             const curtainIntro = document.getElementById('curtain-intro');
             const video = document.getElementById('curtain-video');
             const canvas = document.getElementById('curtain-canvas');
-
             if (!video || !curtainIntro || !canvas) return;
 
             const ctx = canvas.getContext('2d', { willReadFrequently: true });
             let animationFrameId = null;
             let firstFrameDrawn = false;
 
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
 
             function processFrame() {
                 if (video.paused || video.ended) return;
-
                 const vw = video.videoWidth || canvas.width;
                 const vh = video.videoHeight || canvas.height;
                 const scale = Math.max(canvas.width / vw, canvas.height / vh);
-                const w = vw * scale;
-                const h = vh * scale;
-                const x = (canvas.width - w) / 2;
-                const y = (canvas.height - h) / 2;
-
+                const w = vw * scale, h = vh * scale;
+                const x = (canvas.width - w) / 2, y = (canvas.height - h) / 2;
                 ctx.drawImage(video, x, y, w, h);
 
                 if (!firstFrameDrawn) {
                     firstFrameDrawn = true;
                     const overlay = document.getElementById('initial-overlay');
-                    if (overlay) {
-                        overlay.style.opacity = '0';
-                        setTimeout(() => overlay.style.display = 'none', 500);
-                    }
+                    if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
                 }
 
                 try {
                     const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     const l = frame.data.length / 4;
                     for (let i = 0; i < l; i++) {
-                        const r = frame.data[i * 4 + 0];
-                        const g = frame.data[i * 4 + 1];
-                        const b = frame.data[i * 4 + 2];
-
+                        const r = frame.data[i * 4], g = frame.data[i * 4 + 1], b = frame.data[i * 4 + 2];
                         if (g > 80 && g > r * 1.1 && g > b * 1.1) {
                             let diff = g - Math.max(r, b);
-                            if (diff > 40) {
-                                frame.data[i * 4 + 3] = 0;
-                            } else if (diff > 15) {
-                                frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
-                            }
+                            if (diff > 40) frame.data[i * 4 + 3] = 0;
+                            else if (diff > 15) frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
                         }
                     }
                     ctx.putImageData(frame, 0, 0);
                 } catch (e) { }
-
                 animationFrameId = requestAnimationFrame(processFrame);
             }
 
-            video.addEventListener('play', () => {
-                resizeCanvas();
-                processFrame();
-            });
+            video.addEventListener('play', () => { resizeCanvas(); processFrame(); });
 
-            // 10 ms rule to auto-play video
             setTimeout(() => {
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(err => {
-                        ctx.fillStyle = "rgba(44, 42, 40, 0.8)";
+                const p = video.play();
+                if (p !== undefined) {
+                    p.catch(() => {
+                        ctx.fillStyle = "rgba(44,42,40,0.8)";
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        ctx.font = '20px Montserrat';
-                        ctx.fillStyle = '#C6A87C';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('Perdeyi açmak için ekrana dokunun', canvas.width / 2, canvas.height / 2);
-
+                        ctx.font = '18px Montserrat'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
+                        ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
                         document.addEventListener('click', () => {
-                            if (!isOpen && video.paused) video.play().catch(e => console.log(e));
+                            if (!isOpen && video.paused) video.play().catch(() => { });
                         }, { once: true });
                     });
                 }
@@ -798,35 +797,22 @@
                 isOpen = true;
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 curtainIntro.classList.add('fade-out');
-                setTimeout(() => {
-                    curtainIntro.style.display = 'none';
-                }, 1500);
+                setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
-
             video.addEventListener('ended', openCurtain);
         }
 
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            setTimeout(initCurtain, 100);
-        } else {
-            window.addEventListener('load', initCurtain);
-        }
+        if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(initCurtain, 100);
+        else window.addEventListener('load', initCurtain);
 
-        // ===== AUTO PLAY MUSIC =====
-        const backgroundMusic = document.getElementById('background-music');
-        backgroundMusic.volume = 0.2;
-        // Sayfa yüklenince müziği otomatik başlat
-        function startMusic() {
-            backgroundMusic.play().catch(e => {
-                // Tarayıcı engellerse ilk tıklamada başlat
-                document.addEventListener('click', () => {
-                    backgroundMusic.play().catch(() => { });
-                }, { once: true });
-            });
-        }
-        startMusic();
+        // ===== AUTO MUSIC =====
+        const bgMusic = document.getElementById('background-music');
+        bgMusic.volume = 0.2;
+        bgMusic.play().catch(() => {
+            document.addEventListener('click', () => { bgMusic.play().catch(() => { }); }, { once: true });
+        });
 
-        // ===== PHOTO UPLOAD LOGIC =====
+        // ===== UPLOAD =====
         const fileInput = document.getElementById('file-input');
         const fileList = document.getElementById('file-list');
         const submitBtn = document.getElementById('submit-btn');
@@ -835,104 +821,50 @@
         let selectedFiles = [];
 
         fileInput.addEventListener('change', (e) => {
-            Array.from(e.target.files).forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    selectedFiles.push(file);
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    fileItem.textContent = file.name;
-                    fileList.appendChild(fileItem);
+            Array.from(e.target.files).forEach(f => {
+                if (f.type.startsWith('image/')) {
+                    selectedFiles.push(f);
+                    const d = document.createElement('div'); d.className = 'file-item'; d.textContent = f.name;
+                    fileList.appendChild(d);
                 }
             });
-            if (selectedFiles.length > 0) {
-                submitBtn.style.display = 'inline-block';
-            }
+            if (selectedFiles.length > 0) submitBtn.style.display = 'inline-block';
         });
 
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (selectedFiles.length === 0) return;
+            if (!selectedFiles.length) return;
+            submitBtn.disabled = true; submitBtn.textContent = 'Yükleniyor...'; uploadStatus.textContent = '';
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Yükleniyor... Lütfen bekleyin';
-            uploadStatus.textContent = '';
+            const SCRIPT_URL = 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK';
+            let ok = 0, fail = 0;
 
-            /* 
-               IMPORTANT - GOOGLE DRIVE UPLOAD INTEGRATION
-               Siteniz statik olduğu için fotoğrafların Google Drive klasörüne (1kZaOn9UFSrdhGov1jeFXVRaMr_ihvks1) 
-               yüklenebilmesi adına bir "Google Apps Script" (Web App) kullanmalısınız.
-               
-               Bunun için:
-               1. script.google.com adresine gidip yeni proje açın.
-               2. Aşağıdaki kodu yapıştırın:
-                  function doPost(e) {
-                      var data = JSON.parse(e.postData.contents);
-                      var blob = Utilities.newBlob(Utilities.base64Decode(data.data), data.type, data.name);
-                      var folder = DriveApp.getFolderById("1kZaOn9UFSrdhGov1jeFXVRaMr_ihvks1");
-                      var file = folder.createFile(blob);
-                      return ContentService.createTextOutput(JSON.stringify({'status': 'success'})).setMimeType(ContentService.MimeType.JSON);
-                  }
-               3. Projeyi dağıtın (Deploy -> Web App) ve erişimi "Anyone (Herkes)" olarak seçin.
-               4. Size verilen Web App URL adresini aşağıdaki 'SCRIPT_URL' içine yapıştırın.
-            */
-
-            const SCRIPT_URL = 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK'; // Buraya kendi URL'nizi girin
-
-            let successCount = 0;
-            let errorCount = 0;
-
-            for (let i = 0; i < selectedFiles.length; i++) {
-                const file = selectedFiles[i];
+            for (const file of selectedFiles) {
                 try {
                     const reader = new FileReader();
                     reader.onload = async function () {
-                        const base64Data = reader.result.split(',')[1];
-
+                        const b64 = reader.result.split(',')[1];
                         try {
                             if (SCRIPT_URL !== 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK') {
-                                const response = await fetch(SCRIPT_URL, {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        name: file.name,
-                                        type: file.type,
-                                        data: base64Data
-                                    }),
-                                });
-                                if (response.ok) successCount++;
-                                else errorCount++;
-                            } else {
-                                // Script URL ayarlanmamışsa sadece başarılı efekti veriyoruz.
-                                await new Promise(r => setTimeout(r, 1000));
-                                successCount++;
-                            }
-                            checkFinish(successCount, errorCount, selectedFiles.length);
-                        } catch (err) {
-                            errorCount++;
-                            checkFinish(successCount, errorCount, selectedFiles.length);
-                        }
+                                const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: file.name, type: file.type, data: b64 }) });
+                                r.ok ? ok++ : fail++;
+                            } else { await new Promise(r => setTimeout(r, 1000)); ok++; }
+                            done(ok, fail, selectedFiles.length);
+                        } catch (e) { fail++; done(ok, fail, selectedFiles.length); }
                     };
                     reader.readAsDataURL(file);
-                } catch (e) {
-                    errorCount++;
-                    checkFinish(successCount, errorCount, selectedFiles.length);
-                }
+                } catch (e) { fail++; done(ok, fail, selectedFiles.length); }
             }
         });
 
-        function checkFinish(success, error, total) {
-            if (success + error === total) {
-                submitBtn.textContent = 'Fotoğrafları Gönder';
-                submitBtn.disabled = false;
-
-                if (error === 0) {
-                    uploadStatus.innerHTML = `<span style="color: #6D6055;">🎉 ${success} fotoğraf başarıyla gönderildi! Çok teşekkür ederiz.</span>`;
-                    selectedFiles = [];
-                    fileList.innerHTML = '';
-                    submitBtn.style.display = 'none';
-                    fileInput.value = '';
-                } else {
-                    uploadStatus.innerHTML = `<span style="color: #9F8570;">Bazı fotoğraflar yüklenemedi. Lütfen daha sonra tekrar deneyin veya Script URL'nin ayarlı olduğundan emin olun.</span>`;
-                }
+        function done(s, f, t) {
+            if (s + f !== t) return;
+            submitBtn.textContent = 'Fotoğrafları Gönder'; submitBtn.disabled = false;
+            if (f === 0) {
+                uploadStatus.innerHTML = `<span style="color:var(--text)">🎉 ${s} fotoğraf başarıyla gönderildi!</span>`;
+                selectedFiles = []; fileList.innerHTML = ''; submitBtn.style.display = 'none'; fileInput.value = '';
+            } else {
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">Bazı fotoğraflar yüklenemedi.</span>`;
             }
         }
     </script>
