@@ -918,6 +918,8 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8194qI5GT9ymun2BdZSA1r4R2akCaj8EAC2IAoyb_SuNxErINWElWwUN8p1g30whR/exec';
         const MAX_FILE_SIZE_MB = 10;
         const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+        const MAX_IMAGE_DIMENSION = 1600;
+        const JPEG_QUALITY = 0.78;
         let selectedFiles = [];
         let previewUrls = [];
 
@@ -978,6 +980,66 @@
             submitBtn.style.display = selectedFiles.length > 0 ? 'inline-block' : 'none';
         }
 
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error('Dosya okunamadı'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function loadImage(dataUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error('Görsel yüklenemedi'));
+                img.src = dataUrl;
+            });
+        }
+
+        function canvasToBlob(canvas, type, quality) {
+            return new Promise((resolve) => {
+                canvas.toBlob((blob) => resolve(blob), type, quality);
+            });
+        }
+
+        async function prepareUploadPayload(file) {
+            const originalDataUrl = await readFileAsDataURL(file);
+            if (!file.type.startsWith('image/')) {
+                return { type: file.type, data: originalDataUrl.split(',')[1] };
+            }
+
+            const image = await loadImage(originalDataUrl);
+            const maxSide = Math.max(image.width, image.height);
+            const ratio = maxSide > MAX_IMAGE_DIMENSION ? (MAX_IMAGE_DIMENSION / maxSide) : 1;
+
+            const width = Math.max(1, Math.round(image.width * ratio));
+            const height = Math.max(1, Math.round(image.height * ratio));
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return { type: file.type, data: originalDataUrl.split(',')[1] };
+
+            ctx.drawImage(image, 0, 0, width, height);
+
+            const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            const blob = await canvasToBlob(
+                canvas,
+                outputType,
+                outputType === 'image/jpeg' ? JPEG_QUALITY : undefined
+            );
+
+            if (!blob || blob.size >= file.size) {
+                return { type: file.type, data: originalDataUrl.split(',')[1] };
+            }
+
+            const optimizedDataUrl = await readFileAsDataURL(blob);
+            return { type: blob.type || file.type, data: optimizedDataUrl.split(',')[1] };
+        }
+
         uploadArea.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -998,7 +1060,7 @@
                 }
             });
             if (skippedLarge > 0) {
-                uploadStatus.innerHTML = `<span style="color:var(--accent)">${skippedLarge} dosya ${MAX_FILE_SIZE_MB}MB limitini astigi icin eklenmedi.</span>`;
+                uploadStatus.innerHTML = `<span style="color:var(--accent)">${skippedLarge} dosya ${MAX_FILE_SIZE_MB}MB limitini aştığı için eklenmedi.</span>`;
             }
             renderSelectedFiles();
         });
@@ -1015,24 +1077,24 @@
                 return;
             }
             let ok = 0, fail = 0;
+            const total = selectedFiles.length;
 
-            for (const file of selectedFiles) {
+            for (let i = 0; i < total; i++) {
+                const file = selectedFiles[i];
+                uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} hazırlanıyor...</span>`;
                 try {
-                    const reader = new FileReader();
-                    reader.onload = async function () {
-                        const b64 = reader.result.split(',')[1];
-                        try {
-                            const r = await fetch(SCRIPT_URL, {
-                                method: 'POST',
-                                body: JSON.stringify({ name: file.name, type: file.type, data: b64 })
-                            });
-                            r.ok ? ok++ : fail++;
-                            done(ok, fail, selectedFiles.length);
-                        } catch (e) { fail++; done(ok, fail, selectedFiles.length); }
-                    };
-                    reader.readAsDataURL(file);
-                } catch (e) { fail++; done(ok, fail, selectedFiles.length); }
+                    const payload = await prepareUploadPayload(file);
+                    uploadStatus.innerHTML = `<span style="color:var(--text)">${i + 1}/${total} yükleniyor...</span>`;
+                    const r = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ name: file.name, type: payload.type, data: payload.data })
+                    });
+                    r.ok ? ok++ : fail++;
+                } catch (e) {
+                    fail++;
+                }
             }
+            done(ok, fail, total);
         });
 
         function done(s, f, t) {
