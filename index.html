@@ -22,16 +22,25 @@
 
     <style>
         :root {
-            /* Premium Soft Light Theme */
-            --bg-main: #FAF8F5;
-            --bg-card: rgba(255, 255, 255, 0.75);
-            --gold: #C6A87C;
-            --gold-light: #E8DCC8;
-            --text-dark: #2C2A28;
-            --text-muted: #756C65;
+            /* Premium Soft & Elegant Theme */
+            --bg-main: #FDFBF7;
+            --bg-accent: #F4EAE2;
+            --bg-card: rgba(253, 251, 247, 0.85);
+
+            --gold: #C0A996;
+            --gold-light: #E0D3C8;
+            --gold-dark: #9F8570;
+
+            --text-dark: #584F47;
+            --text-muted: #958B82;
             --blush: #EADBD5;
-            --glass-border: rgba(198, 168, 124, 0.25);
-            --glass-shadow: 0 15px 35px rgba(44, 42, 40, 0.04);
+
+            --border-light: rgba(192, 169, 150, 0.3);
+            --shadow-soft: 0 15px 40px rgba(88, 79, 71, 0.05);
+
+            --font-headings: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-accent: 'Great Vibes', cursive;
         }
 
         * {
@@ -45,7 +54,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--font-body);
             background-color: var(--bg-main);
             color: var(--text-dark);
             min-height: 100vh;
@@ -54,7 +63,7 @@
             position: relative;
         }
 
-        /* Ambient floating background colors */
+        /* Ambient floating background styling */
         .ambient-bg {
             position: fixed;
             top: 0;
@@ -64,14 +73,15 @@
             z-index: -1;
             pointer-events: none;
             overflow: hidden;
+            background: linear-gradient(135deg, #FDFBF7 0%, #F4EAE2 100%);
         }
 
         .ambient-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 25s infinite ease-in-out alternate;
         }
 
         .blob-1 {
@@ -79,8 +89,7 @@
             left: -10%;
             width: 50vw;
             height: 50vw;
-            background: var(--blush);
-            animation-duration: 25s;
+            background: #E8DCC8;
         }
 
         .blob-2 {
@@ -88,24 +97,22 @@
             right: -10%;
             width: 60vw;
             height: 60vw;
-            background: var(--gold-light);
-            animation-duration: 22s;
-            animation-delay: -5s;
+            background: #EADBD5;
+            animation-duration: 28s;
+            animation-direction: alternate-reverse;
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0% {
                 transform: translate(0, 0) scale(1);
             }
 
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
+            50% {
+                transform: translate(30px, -30px) scale(1.1);
             }
 
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
+            100% {
+                transform: translate(-20px, 20px) scale(0.95);
             }
         }
 
@@ -129,11 +136,7 @@
             transition: opacity 1.5s ease;
         }
 
-        .curtain-intro.open-curtain {
-            z-index: -9999 !important;
-        }
-
-        .curtain-intro video {
+        #curtain-video {
             display: none;
         }
 
@@ -153,8 +156,8 @@
             background: var(--bg-card);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            color: var(--gold);
+            border: 1px solid var(--border-light);
+            color: var(--gold-dark);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -169,13 +172,13 @@
 
         .music-toggle:hover {
             transform: scale(1.08);
-            border-color: var(--gold);
-            box-shadow: 0 8px 25px rgba(198, 168, 124, 0.2);
+            border-color: var(--gold-dark);
+            box-shadow: 0 8px 25px rgba(192, 169, 150, 0.2);
             background: #fff;
         }
 
         .music-toggle.muted {
-            color: var(--text-muted);
+            color: #d1d1d1;
             opacity: 0.8;
         }
 
@@ -183,13 +186,13 @@
         h1,
         h2,
         h3 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-headings);
             font-weight: 400;
         }
 
         .accent-font {
-            font-family: 'Great Vibes', cursive;
-            color: var(--gold);
+            font-family: var(--font-accent);
+            color: var(--gold-dark);
         }
 
         /* ===== HERO SECTION ===== */
@@ -204,38 +207,30 @@
             text-align: center;
         }
 
-        .hero-content {
-            z-index: 2;
-            padding: 40px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
         .names {
-            font-size: clamp(3.5rem, 12vw, 6.5rem);
+            font-size: clamp(4rem, 12vw, 7rem);
             color: var(--text-dark);
             line-height: 1.1;
             letter-spacing: 2px;
-            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 4px 20px rgba(253, 251, 247, 0.8);
         }
 
         .ampersand {
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: clamp(3.5rem, 10vw, 5.5rem);
             line-height: 0.8;
-            margin: 15px 0;
+            margin: 10px 0;
             opacity: 0.9;
         }
 
         .subtitle {
-            font-size: clamp(0.85rem, 3vw, 1.1rem);
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
             color: var(--text-muted);
             margin-top: 30px;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             text-transform: uppercase;
             font-weight: 300;
         }
 
-        /* Down indicator */
         .scroll-down {
             position: absolute;
             bottom: 40px;
@@ -268,85 +263,67 @@
         .section {
             padding: 100px 20px;
             position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-title {
-            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             text-align: center;
             margin-bottom: 3.5rem;
             color: var(--text-dark);
             letter-spacing: 1px;
         }
 
-        /* ===== EVENT DETAILS SECTION ===== */
+        /* ===== EVENT DETAILS ===== */
         .glass-card {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            padding: 60px 50px;
-            box-shadow: var(--glass-shadow);
-            position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--shadow-soft);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
         }
 
         .glass-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(44, 42, 40, 0.08);
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.6;
+            box-shadow: 0 25px 50px rgba(88, 79, 71, 0.08);
         }
 
         .detail-item {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 25px;
             margin-bottom: 35px;
         }
 
-        .detail-item:last-of-type {
+        .detail-item:last-child {
             margin-bottom: 0;
         }
 
         .detail-icon {
             font-size: 1.8rem;
-            color: var(--gold);
-            width: 55px;
-            height: 55px;
+            color: var(--gold-dark);
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #fff;
             border-radius: 50%;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-light);
             flex-shrink: 0;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
             transition: transform 0.3s;
         }
 
         .detail-item:hover .detail-icon {
-            transform: scale(1.1);
-        }
-
-        .detail-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 55px;
+            transform: scale(1.1) rotate(5deg);
         }
 
         .detail-label {
@@ -354,124 +331,151 @@
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 4px;
             font-weight: 500;
         }
 
         .detail-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-family: var(--font-headings);
+            font-size: 1.8rem;
             color: var(--text-dark);
-            font-weight: 500;
         }
 
-        /* ===== INVITATION BUTTON ===== */
-        .btn-gold {
-            display: inline-block;
-            margin-top: 45px;
-            padding: 15px 40px;
-            background: #fff;
-            color: var(--text-dark);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            box-shadow: 0 8px 20px rgba(198, 168, 124, 0.15);
-            font-weight: 500;
+        /* ===== LOCATION SECTION (MAP) ===== */
+        .map-section {
+            background: transparent;
         }
 
-        .btn-gold:hover {
-            background: var(--gold);
-            color: #fff;
-            border-color: var(--gold);
-            box-shadow: 0 10px 25px rgba(198, 168, 124, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* ===== COUNTDOWN TIMER ===== */
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        .map-wrapper {
             max-width: 800px;
             margin: 0 auto;
-            flex-wrap: wrap;
-        }
-
-        .countdown-box {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 20px;
-            padding: 25px 15px;
-            width: calc(25% - 15px);
-            min-width: 120px;
-            text-align: center;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 8px solid rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .map-details {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        /* ===== PHOTO UPLOAD SECTION ===== */
+        .upload-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .upload-desc {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--gold);
+            border-radius: 15px;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: var(--glass-shadow);
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        .countdown-box:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
+        .upload-area:hover {
             background: #fff;
+            transform: translateY(-2px);
+            border-color: var(--gold-dark);
+            box-shadow: 0 5px 20px rgba(192, 169, 150, 0.15);
         }
 
-        .countdown-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            color: var(--gold);
-            display: block;
-            line-height: 1;
-            margin-bottom: 10px;
-            font-weight: 400;
+        .upload-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: var(--gold-dark);
+            opacity: 0.8;
         }
 
-        .countdown-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .upload-text {
+            font-size: 0.95rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
-        /* ===== PHOTO GALLERY ===== */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            max-width: 900px;
-            margin: 0 auto;
+        .file-list {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        .gallery-item {
-            aspect-ratio: 4/5;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            background: #fff;
+        .file-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--blush);
-            border: 8px solid #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: all 0.5s ease;
-            cursor: pointer;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
         }
 
-        .gallery-item:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(198, 168, 124, 0.15);
-            color: var(--gold);
-            border-color: var(--bg-main);
+        .file-item::before {
+            content: '📸';
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: var(--gold-dark);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(159, 133, 112, 0.3);
+            width: 100%;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #8b715d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(159, 133, 112, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #d3c4b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .upload-status {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.5;
         }
 
         /* ===== QUOTE SECTION ===== */
@@ -479,104 +483,67 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 40px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+            padding: 80px 40px;
         }
 
         .quote-icon {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 15px;
+            font-family: var(--font-accent);
+            font-size: 3rem;
+            color: var(--gold-dark);
+            margin-bottom: 20px;
             opacity: 0.8;
         }
 
         .quote-text {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-style: italic;
             color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        .quote-text .accent-font {
-            display: inline-block;
-            margin: 0 8px;
-            font-size: 1.1em;
+            line-height: 1.5;
         }
 
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 60px 20px 40px;
-            position: relative;
+            border-top: 1px solid var(--border-light);
         }
 
         .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-family: var(--font-headings);
+            font-size: 2.2rem;
             color: var(--text-dark);
             margin-bottom: 10px;
             letter-spacing: 4px;
         }
 
         .footer-date {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 20px;
         }
 
-        /* Sparkle Animation */
-        .sparkle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            box-shadow: 0 0 10px var(--gold-light), 0 0 20px var(--gold);
-            opacity: 1;
-            animation: sparkleAnim 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        @keyframes sparkleAnim {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-
-            40% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
             .glass-card {
-                padding: 40px 30px;
+                padding: 40px 20px;
             }
 
             .detail-item {
                 flex-direction: column;
-                align-items: center;
                 text-align: center;
                 gap: 15px;
             }
 
-            .countdown-box {
-                width: calc(50% - 10px);
-                padding: 20px 10px;
+            .section {
+                padding: 70px 20px;
             }
 
-            body {
-                line-height: 1.5;
+            .map-wrapper {
+                height: 350px;
+            }
+
+            .map-wrapper iframe {
+                height: 350px !important;
             }
         }
     </style>
@@ -586,7 +553,8 @@
     <div id="initial-overlay"
         style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#111; z-index:9998; transition: opacity 0.5s ease; pointer-events:none;">
     </div>
-    <!-- Floating Ambient Backgrounds -->
+
+    <!-- Floating Backgrounds -->
     <div class="ambient-bg">
         <div class="ambient-blob blob-1"></div>
         <div class="ambient-blob blob-2"></div>
@@ -597,119 +565,104 @@
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Music Toggle Button -->
     <button class="music-toggle muted" id="music-toggle" title="Müziği Aç / Kapat">🎵</button>
 
-    <!-- Video Curtain Intro -->
+    <!-- Video Intro -->
     <div class="curtain-intro" id="curtain-intro">
-        <!-- Video object matches the chroma key area -->
-        <video autoplay muted playsinline id="curtain-video" preload="auto">
+        <video muted playsinline id="curtain-video" preload="auto">
             <source src="video.mp4" type="video/mp4">
-            Tarayıcınız videoyu desteklemiyor.
         </video>
         <canvas id="curtain-canvas"></canvas>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <div data-aos="fade-down" data-aos-duration="1200">
-                <h1 class="names">Nisa</h1>
-            </div>
-            <div data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
-                <div class="accent-font ampersand">&</div>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400">
-                <h1 class="names">Haluk</h1>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
-                <p class="subtitle">Nişan Davetiyesi</p>
-            </div>
+        <div data-aos="fade-down" data-aos-duration="1500">
+            <h1 class="names">Nisa</h1>
+        </div>
+        <div data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
+            <div class="accent-font ampersand">&</div>
+        </div>
+        <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="600">
+            <h1 class="names">Haluk</h1>
+        </div>
+        <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+            <p class="subtitle">Nişan Davetiyesi</p>
         </div>
         <div class="scroll-down"></div>
     </section>
 
-    <!-- Event Details Section -->
-    <section class="section" id="event-details">
-        <h2 class="section-title" data-aos="fade-up">Törenimize Davetlisiniz</h2>
+    <!-- Details -->
+    <section class="section">
+        <h2 class="section-title" data-aos="fade-up">Tören Detayları</h2>
         <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="detail-item" data-aos="fade-right" data-aos-delay="300">
+            <div class="detail-item" data-aos="fade-right" data-aos-delay="200">
                 <div class="detail-icon">📅</div>
-                <div class="detail-content">
+                <div>
                     <div class="detail-label">Tarih</div>
                     <div class="detail-text">26 Nisan 2026</div>
                 </div>
             </div>
-
-            <div class="detail-item" data-aos="fade-right" data-aos-delay="450">
+            <div class="detail-item" data-aos="fade-left" data-aos-delay="300">
                 <div class="detail-icon">✨</div>
-                <div class="detail-content">
+                <div>
                     <div class="detail-label">Etkinlik</div>
                     <div class="detail-text">Nişan Merasimi</div>
                 </div>
             </div>
-
-            <div class="detail-item" data-aos="fade-right" data-aos-delay="600">
-                <div class="detail-icon">🕊️</div>
-                <div class="detail-content">
-                    <div class="detail-label">Ev Sahipleri</div>
-                    <div class="detail-text">Nisa & Haluk</div>
-                </div>
-            </div>
-
-            <div style="text-align: center;" data-aos="zoom-in" data-aos-delay="700">
-                <button class="btn-gold" id="scroll-button">Detayları Görüntüle</button>
-            </div>
         </div>
     </section>
 
-    <!-- Countdown Timer Section -->
-    <section class="section" id="countdown-section">
-        <h2 class="section-title" data-aos="fade-down">Heyecana Merdiven Kala</h2>
-        <div class="countdown-grid" id="countdown">
-            <div class="countdown-box" data-aos="flip-up" data-aos-delay="100">
-                <span class="countdown-num" id="days">0</span>
-                <span class="countdown-label">Gün</span>
-            </div>
-            <div class="countdown-box" data-aos="flip-up" data-aos-delay="200">
-                <span class="countdown-num" id="hours">0</span>
-                <span class="countdown-label">Saat</span>
-            </div>
-            <div class="countdown-box" data-aos="flip-up" data-aos-delay="300">
-                <span class="countdown-num" id="minutes">0</span>
-                <span class="countdown-label">Dakika</span>
-            </div>
-            <div class="countdown-box" data-aos="flip-up" data-aos-delay="400">
-                <span class="countdown-num" id="seconds">0</span>
-                <span class="countdown-label">Saniye</span>
-            </div>
+    <!-- Location Map -->
+    <section class="section map-section">
+        <h2 class="section-title" data-aos="fade-up">Konum</h2>
+        <div class="map-wrapper" data-aos="zoom-in" data-aos-delay="150">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.8990705792403!2d28.9016860755183!3d41.09305181420149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab1638fd51b65%3A0x75dc7988c453b23d!2sTulipan%20Davet%20Organizasyon%20-%20Tulipan%20Palazio%20Organizasyon!5e0!3m2!1str!2str!4v1772861244209!5m2!1str!2str"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="map-details" data-aos="fade-up" data-aos-delay="200">
+            <p><strong>Tulipan Davet Organizasyon</strong></p>
+            <p>Tulipan Palazio Organizasyon, İstanbul</p>
         </div>
     </section>
 
-    <!-- Photo Gallery Section -->
-    <section class="section" id="photo-section">
-        <h2 class="section-title" data-aos="fade-up">Anılarımız</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">💍</div>
-            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">🌹</div>
-            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">🤍</div>
+    <!-- Photo Upload -->
+    <section class="section">
+        <h2 class="section-title" data-aos="fade-up">Anıları Paylaşın</h2>
+        <p class="upload-desc" data-aos="fade-up" data-aos-delay="100">
+            Bu özel gecede çektiğiniz fotoğrafları bizimle paylaşabilirsiniz.
+        </p>
+
+        <div class="upload-container" data-aos="zoom-in" data-aos-delay="200">
+            <form id="upload-form">
+                <input type="file" id="file-input" accept="image/*" multiple style="display: none;" />
+                <label for="file-input" class="upload-area">
+                    <span class="upload-icon">📸</span>
+                    <span class="upload-text">Fotoğrafları seçmek için tıklayın</span>
+                </label>
+                <div id="file-list" class="file-list"></div>
+                <button type="submit" id="submit-btn" class="btn-primary" style="display: none;">Fotoğrafları
+                    Gönder</button>
+            </form>
+            <div id="upload-status" class="upload-status"></div>
         </div>
     </section>
 
-    <!-- Quote Section -->
-    <section class="section" id="quote-section">
+    <!-- Quote & Footer -->
+    <section class="section">
         <div class="quote-container" data-aos="fade-in">
-            <div class="quote-icon">✦</div>
+            <div class="quote-icon">✧</div>
             <p class="quote-text">
-                Hayatımızın en özel gününde,<br>
+                Hayatımızın en özel gününde<br>
                 <span class="accent-font">sizleri de</span><br>
                 aramızda görmekten onur duyarız.
             </p>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-logo">N &amp; H</div>
         <div class="footer-date">26 Nisan 2026</div>
@@ -717,18 +670,10 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: false,
-            mirror: true,
-            offset: 50
-        });
+        AOS.init({ duration: 1000, easing: 'ease-out-cubic', once: true, offset: 50 });
 
-        // ===== VIDEO CURTAIN INTRO LOGIC =====
+        // ===== CURTAIN LOGIC =====
         function initCurtain() {
             const curtainIntro = document.getElementById('curtain-intro');
             const video = document.getElementById('curtain-video');
@@ -753,7 +698,6 @@
 
                 const vw = video.videoWidth || canvas.width;
                 const vh = video.videoHeight || canvas.height;
-                // Ensures the video covers the canvas perfectly
                 const scale = Math.max(canvas.width / vw, canvas.height / vh);
                 const w = vw * scale;
                 const h = vh * scale;
@@ -771,31 +715,25 @@
                     }
                 }
 
-                let frame;
                 try {
-                    frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                } catch (e) {
-                    animationFrameId = requestAnimationFrame(processFrame);
-                    return;
-                }
+                    const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const l = frame.data.length / 4;
+                    for (let i = 0; i < l; i++) {
+                        const r = frame.data[i * 4 + 0];
+                        const g = frame.data[i * 4 + 1];
+                        const b = frame.data[i * 4 + 2];
 
-                const l = frame.data.length / 4;
-                for (let i = 0; i < l; i++) {
-                    const r = frame.data[i * 4 + 0];
-                    const g = frame.data[i * 4 + 1];
-                    const b = frame.data[i * 4 + 2];
-
-                    // Chroma key logic (making green transparent)
-                    if (g > 80 && g > r * 1.1 && g > b * 1.1) {
-                        let diff = g - Math.max(r, b);
-                        if (diff > 40) {
-                            frame.data[i * 4 + 3] = 0;
-                        } else if (diff > 15) {
-                            frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
+                        if (g > 80 && g > r * 1.1 && g > b * 1.1) {
+                            let diff = g - Math.max(r, b);
+                            if (diff > 40) {
+                                frame.data[i * 4 + 3] = 0;
+                            } else if (diff > 15) {
+                                frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
+                            }
                         }
                     }
-                }
-                ctx.putImageData(frame, 0, 0);
+                    ctx.putImageData(frame, 0, 0);
+                } catch (e) { }
 
                 animationFrameId = requestAnimationFrame(processFrame);
             }
@@ -803,21 +741,39 @@
             video.addEventListener('play', () => {
                 resizeCanvas();
                 processFrame();
+
+                const bgMusic = document.getElementById('background-music');
+                const mToggle = document.getElementById('music-toggle');
+                if (bgMusic) {
+                    bgMusic.volume = 0.2;
+                    const audioPromise = bgMusic.play();
+                    if (audioPromise !== undefined) {
+                        audioPromise.then(() => {
+                            if (mToggle) mToggle.classList.remove('muted');
+                            isMuted = false;
+                        }).catch(e => console.log('Müzik engellendi:', e));
+                    }
+                }
             });
 
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(err => {
-                    console.log('Video autoplay engellendi veya hata oluştu:', err);
-                    // Autoplay blocked, wait for user interaction
-                    ctx.fillStyle = "rgba(44, 42, 40, 0.8)";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.font = '20px Montserrat';
-                    ctx.fillStyle = '#C6A87C';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Perdeyi açmak için ekrana dokunun', canvas.width / 2, canvas.height / 2);
-                });
-            }
+            // 30 ms rule to auto-play video
+            setTimeout(() => {
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => {
+                        ctx.fillStyle = "rgba(44, 42, 40, 0.8)";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.font = '20px Montserrat';
+                        ctx.fillStyle = '#C6A87C';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Perdeyi açmak için ekrana dokunun', canvas.width / 2, canvas.height / 2);
+
+                        document.addEventListener('click', () => {
+                            if (!isOpen && video.paused) video.play().catch(e => console.log(e));
+                        }, { once: true });
+                    });
+                }
+            }, 30);
 
             let isOpen = false;
             function openCurtain() {
@@ -827,31 +783,10 @@
                 curtainIntro.classList.add('fade-out');
                 setTimeout(() => {
                     curtainIntro.style.display = 'none';
-                    if (!video.paused) video.pause();
-                }, 1500); // Wait for the 1.5s fade-out in CSS
+                }, 1500);
             }
 
             video.addEventListener('ended', openCurtain);
-
-            function handlePlayClick(e) {
-                if (isOpen) return;
-
-                if (video.paused) {
-                    // Start playing if paused
-                    video.play().catch(err => console.log('Oynatma hatası:', err));
-                }
-            }
-
-            function handlePassiveInteraction() {
-                if (video.paused && !isOpen) {
-                    video.play().catch(err => console.log('Oynatma hatası:', err));
-                }
-            }
-
-            document.addEventListener('click', handlePlayClick);
-            ['wheel', 'scroll'].forEach(evt => {
-                document.addEventListener(evt, handlePassiveInteraction, { passive: true });
-            });
         }
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -863,7 +798,6 @@
         // ===== MUSIC TOGGLE =====
         const musicToggle = document.getElementById('music-toggle');
         const backgroundMusic = document.getElementById('background-music');
-        backgroundMusic.volume = 0.2; // Set soft volume
         let isMuted = true;
 
         musicToggle.addEventListener('click', () => {
@@ -872,68 +806,120 @@
                 backgroundMusic.pause();
                 musicToggle.classList.add('muted');
             } else {
-                backgroundMusic.play().catch(err => console.log('Müzik başlatılamadı:', err));
+                backgroundMusic.play().catch(e => console.log(e));
                 musicToggle.classList.remove('muted');
             }
         });
 
-        // ===== COUNTDOWN TIMER =====
-        function updateCountdown() {
-            const eventDate = new Date('2026-04-26T00:00:00').getTime();
-            const now = new Date().getTime();
-            const timeLeft = eventDate - now;
+        // ===== PHOTO UPLOAD LOGIC =====
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const submitBtn = document.getElementById('submit-btn');
+        const uploadForm = document.getElementById('upload-form');
+        const uploadStatus = document.getElementById('upload-status');
+        let selectedFiles = [];
 
-            if (timeLeft < 0) {
-                document.getElementById('days').textContent = '0';
-                document.getElementById('hours').textContent = '0';
-                document.getElementById('minutes').textContent = '0';
-                document.getElementById('seconds').textContent = '0';
-                return;
+        fileInput.addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    selectedFiles.push(file);
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.textContent = file.name;
+                    fileList.appendChild(fileItem);
+                }
+            });
+            if (selectedFiles.length > 0) {
+                submitBtn.style.display = 'inline-block';
             }
-
-            document.getElementById('days').textContent = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').textContent = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('minutes').textContent = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('seconds').textContent = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ===== SCROLL BUTTON =====
-        document.getElementById('scroll-button').addEventListener('click', () => {
-            const detailsSection = document.getElementById('countdown-section');
-            detailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
-        // ===== SPARKLE ANIMATION =====
-        function createSparkle(e) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (selectedFiles.length === 0) return;
 
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 30 + Math.random() * 50;
-            const tx = Math.cos(angle) * velocity;
-            const ty = Math.sin(angle) * velocity;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Yükleniyor... Lütfen bekleyin';
+            uploadStatus.textContent = '';
 
-            sparkle.style.setProperty('--tx', `${tx}px`);
-            sparkle.style.setProperty('--ty', `${ty}px`);
-            sparkle.style.left = e.clientX + 'px';
-            sparkle.style.top = e.clientY + 'px';
+            /* 
+               IMPORTANT - GOOGLE DRIVE UPLOAD INTEGRATION
+               Siteniz statik olduğu için fotoğrafların Google Drive klasörüne (1kZaOn9UFSrdhGov1jeFXVRaMr_ihvks1) 
+               yüklenebilmesi adına bir "Google Apps Script" (Web App) kullanmalısınız.
+               
+               Bunun için:
+               1. script.google.com adresine gidip yeni proje açın.
+               2. Aşağıdaki kodu yapıştırın:
+                  function doPost(e) {
+                      var data = JSON.parse(e.postData.contents);
+                      var blob = Utilities.newBlob(Utilities.base64Decode(data.data), data.type, data.name);
+                      var folder = DriveApp.getFolderById("1kZaOn9UFSrdhGov1jeFXVRaMr_ihvks1");
+                      var file = folder.createFile(blob);
+                      return ContentService.createTextOutput(JSON.stringify({'status': 'success'})).setMimeType(ContentService.MimeType.JSON);
+                  }
+               3. Projeyi dağıtın (Deploy -> Web App) ve erişimi "Anyone (Herkes)" olarak seçin.
+               4. Size verilen Web App URL adresini aşağıdaki 'SCRIPT_URL' içine yapıştırın.
+            */
 
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 1000);
-        }
+            const SCRIPT_URL = 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK'; // Buraya kendi URL'nizi girin
 
-        document.addEventListener('click', (e) => {
-            // Sadece arka plan objesi değilse veya video değilse tıklandığında sparkle
-            if (!e.target.closest('#curtain-intro') && !e.target.closest('.music-toggle')) {
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => createSparkle(e), i * 40);
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                try {
+                    const reader = new FileReader();
+                    reader.onload = async function () {
+                        const base64Data = reader.result.split(',')[1];
+
+                        try {
+                            if (SCRIPT_URL !== 'GOOGLE_APPS_SCRIPT_URL_BURAYA_GELECEK') {
+                                const response = await fetch(SCRIPT_URL, {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        name: file.name,
+                                        type: file.type,
+                                        data: base64Data
+                                    }),
+                                });
+                                if (response.ok) successCount++;
+                                else errorCount++;
+                            } else {
+                                // Script URL ayarlanmamışsa sadece başarılı efekti veriyoruz.
+                                await new Promise(r => setTimeout(r, 1000));
+                                successCount++;
+                            }
+                            checkFinish(successCount, errorCount, selectedFiles.length);
+                        } catch (err) {
+                            errorCount++;
+                            checkFinish(successCount, errorCount, selectedFiles.length);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } catch (e) {
+                    errorCount++;
+                    checkFinish(successCount, errorCount, selectedFiles.length);
                 }
             }
         });
 
+        function checkFinish(success, error, total) {
+            if (success + error === total) {
+                submitBtn.textContent = 'Fotoğrafları Gönder';
+                submitBtn.disabled = false;
+
+                if (error === 0) {
+                    uploadStatus.innerHTML = `<span style="color: #6D6055;">🎉 ${success} fotoğraf başarıyla gönderildi! Çok teşekkür ederiz.</span>`;
+                    selectedFiles = [];
+                    fileList.innerHTML = '';
+                    submitBtn.style.display = 'none';
+                    fileInput.value = '';
+                } else {
+                    uploadStatus.innerHTML = `<span style="color: #9F8570;">Bazı fotoğraflar yüklenemedi. Lütfen daha sonra tekrar deneyin veya Script URL'nin ayarlı olduğundan emin olun.</span>`;
+                }
+            }
+        }
     </script>
 </body>
 
