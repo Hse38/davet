@@ -604,7 +604,7 @@
     <!-- Video Curtain Intro -->
     <div class="curtain-intro" id="curtain-intro">
         <!-- Video object matches the chroma key area -->
-        <video autoplay muted playsinline id="curtain-video" preload="auto">
+        <video muted playsinline id="curtain-video" preload="auto">
             <source src="video.mp4" type="video/mp4">
             Tarayıcınız videoyu desteklemiyor.
         </video>
@@ -804,21 +804,44 @@
             video.addEventListener('play', () => {
                 resizeCanvas();
                 processFrame();
+
+                // Video başladığında müziği senkronize olarak başlat
+                const bgMusic = document.getElementById('background-music');
+                const mToggle = document.getElementById('music-toggle');
+                if (bgMusic) {
+                    bgMusic.volume = 0.2;
+                    const audioPromise = bgMusic.play();
+                    if (audioPromise !== undefined) {
+                        audioPromise.then(() => {
+                            if (typeof isMuted !== 'undefined') isMuted = false;
+                            if (mToggle) mToggle.classList.remove('muted');
+                        }).catch(err => {
+                            console.log('Tarayıcı otomatik müziği engelledi:', err);
+                        });
+                    }
+                }
             });
 
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(err => {
-                    console.log('Video autoplay engellendi veya hata oluştu:', err);
-                    // Autoplay blocked, wait for user interaction
-                    ctx.fillStyle = "rgba(44, 42, 40, 0.8)";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.font = '20px Montserrat';
-                    ctx.fillStyle = '#C6A87C';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Perdeyi açmak için ekrana dokunun', canvas.width / 2, canvas.height / 2);
-                });
-            }
+            // 30 ms sonra perde videosunu otomatik oynat
+            setTimeout(() => {
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => {
+                        console.log('Video autoplay engellendi veya hata oluştu:', err);
+                        ctx.fillStyle = "rgba(44, 42, 40, 0.8)";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.font = '20px Montserrat';
+                        ctx.fillStyle = '#C6A87C';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Perdeyi açmak için ekrana dokunun', canvas.width / 2, canvas.height / 2);
+
+                        // Tarayıcı otomatik oynatmaya izin vermezse tıklama ile başlat
+                        document.addEventListener('click', () => {
+                            if (!isOpen && video.paused) video.play().catch(e => console.log(e));
+                        }, { once: true });
+                    });
+                }
+            }, 30);
 
             let isOpen = false;
             function openCurtain() {
@@ -833,26 +856,6 @@
             }
 
             video.addEventListener('ended', openCurtain);
-
-            function handlePlayClick(e) {
-                if (isOpen) return;
-
-                if (video.paused) {
-                    // Start playing if paused
-                    video.play().catch(err => console.log('Oynatma hatası:', err));
-                }
-            }
-
-            function handlePassiveInteraction() {
-                if (video.paused && !isOpen) {
-                    video.play().catch(err => console.log('Oynatma hatası:', err));
-                }
-            }
-
-            document.addEventListener('click', handlePlayClick);
-            ['wheel', 'scroll'].forEach(evt => {
-                document.addEventListener(evt, handlePassiveInteraction, { passive: true });
-            });
         }
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
