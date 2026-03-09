@@ -1235,6 +1235,11 @@
 
             video.addEventListener('play', () => { resizeCanvas(); processFrame(); });
 
+            // Video play eventinde müziği de başlat (mobil için kritik)
+            video.addEventListener('play', () => {
+                if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => { });
+            }, { once: true });
+
             setTimeout(() => {
                 const p = video.play();
                 if (p !== undefined) {
@@ -1243,9 +1248,15 @@
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                         ctx.font = '18px Montserrat'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
                         ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
-                        document.addEventListener('click', () => {
-                            if (!isOpen && video.paused) video.play().catch(() => { });
-                        }, { once: true });
+                        const startOnTouch = () => {
+                            if (!isOpen && video.paused) {
+                                video.play().catch(() => { });
+                            }
+                            // Müziği de başlatmaya çalış
+                            if (bgMusic && bgMusic.paused) bgMusic.play().catch(() => { });
+                        };
+                        document.addEventListener('click', startOnTouch, { once: true });
+                        document.addEventListener('touchstart', startOnTouch, { once: true });
                     });
                 }
             }, 5);
@@ -1257,6 +1268,8 @@
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 curtainIntro.classList.add('fade-out');
                 setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
+                // Perde kapandığında müziği başlatmayı tetikle
+                window.dispatchEvent(new Event('curtain-opened'));
             }
             video.addEventListener('ended', openCurtain);
         }
@@ -1267,12 +1280,28 @@
         // ===== AUTO MUSIC =====
         const bgMusic = document.getElementById('background-music');
         bgMusic.volume = 0.2;
-        bgMusic.play().catch(() => {
-            const tryPlay = () => { bgMusic.play().catch(() => { }); };
-            document.addEventListener('click', tryPlay, { once: true });
-            document.addEventListener('touchstart', tryPlay, { once: true });
-            document.addEventListener('scroll', tryPlay, { once: true });
+
+        let musicStarted = false;
+        function tryStartMusic() {
+            if (musicStarted) return;
+            bgMusic.play().then(() => {
+                musicStarted = true;
+            }).catch(() => { });
+        }
+
+        // İlk direkt deneme (masaüstü genellikle izin verir)
+        tryStartMusic();
+
+        // Herhangi bir kullanıcı etkileşiminde tekrar dene
+        ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, function handler() {
+                tryStartMusic();
+                if (musicStarted) document.removeEventListener(evt, handler);
+            });
         });
+
+        // Perde kapandığında tekrar dene
+        window.addEventListener('curtain-opened', tryStartMusic, { once: true });
 
         // ===== UPLOAD =====
         const fileInput = document.getElementById('file-input');
