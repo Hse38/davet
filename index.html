@@ -8,7 +8,8 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
     <title>Nisa & Haluk - Nişan Davetiyesi</title>
-    <meta name="description" content="Nisa ve Haluk'un nişan davetine davetlisiniz. Konum, tarih ve anı paylaşım alanı burada.">
+    <meta name="description"
+        content="Nisa ve Haluk'un nişan davetine davetlisiniz. Konum, tarih ve anı paylaşım alanı burada.">
     <meta name="theme-color" content="#B59A7A">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Nisa & Haluk - Nişan Davetiyesi">
@@ -947,7 +948,7 @@
     <canvas id="sparkle-canvas"></canvas>
 
     <!-- Music -->
-    <audio id="background-music" loop preload="none">
+    <audio id="background-music" loop preload="auto">
         <source src="music.ogg" type="audio/ogg">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
@@ -984,7 +985,7 @@
                 <p class="subtitle">Nişan Davetiyesi</p>
             </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1100">
-                <p class="hero-date">26 Nisan 2026</p>
+                <p class="hero-date">26 Nisan 2026 • 19.00</p>
             </div>
             <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1300">
                 <p class="hero-message">Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız.</p>
@@ -1034,7 +1035,8 @@
             <p><strong>Tulipan Davet Organizasyon</strong></p>
             <p style="color:var(--text-light); margin-top:5px;">Tulipan Palazio, İstanbul</p>
             <a href="https://www.google.com/maps/place/Tulipan+Davet+Organizasyon+-+Tulipan+Palazio+Organizasyon/@41.09305181420149,28.9016860755183,17z"
-                target="_blank" class="btn-location" id="map-link" data-aos="zoom-in" data-aos-delay="300">Konuma Git</a>
+                target="_blank" class="btn-location" id="map-link" data-aos="zoom-in" data-aos-delay="300">Konuma
+                Git</a>
         </div>
     </section>
 
@@ -1057,7 +1059,8 @@
                     Gönder</button>
             </form>
             <div id="upload-status" class="upload-status" role="status" aria-live="polite"></div>
-            <button type="button" id="retry-btn" class="btn-secondary" style="display:none;">Başarısızları Tekrar Dene</button>
+            <button type="button" id="retry-btn" class="btn-secondary" style="display:none;">Başarısızları Tekrar
+                Dene</button>
 
             <div class="memory-book" data-aos="fade-up" data-aos-delay="250">
                 <h3 class="memory-title">Anı Defteri</h3>
@@ -1068,7 +1071,8 @@
                 </div>
                 <div class="memory-author">
                     <input type="text" id="memory-author-input" class="memory-author-input" maxlength="60"
-                        placeholder="Notu kim bırakıyor? (Örn: Haluk / Ekinci Ailesi)" aria-label="Notu bırakan kişi veya aile">
+                        placeholder="Notu kim bırakıyor? (Örn: Haluk / Ekinci Ailesi)"
+                        aria-label="Notu bırakan kişi veya aile">
                 </div>
                 <form id="memory-form">
                     <div class="book-stage">
@@ -1080,8 +1084,10 @@
                     </div>
                     <div class="memory-toolbar">
                         <div class="memory-nav">
-                            <button type="button" id="prev-page-btn" class="nav-btn" aria-label="Önceki sayfa">‹</button>
-                            <button type="button" id="next-page-btn" class="nav-btn" aria-label="Sonraki sayfa">›</button>
+                            <button type="button" id="prev-page-btn" class="nav-btn"
+                                aria-label="Önceki sayfa">‹</button>
+                            <button type="button" id="next-page-btn" class="nav-btn"
+                                aria-label="Sonraki sayfa">›</button>
                         </div>
                         <span id="memory-count" class="memory-count">0 / 350</span>
                         <button type="submit" id="memory-submit" class="btn-primary memory-btn">Sayfaya Yaz</button>
@@ -1262,7 +1268,10 @@
         const bgMusic = document.getElementById('background-music');
         bgMusic.volume = 0.2;
         bgMusic.play().catch(() => {
-            document.addEventListener('click', () => { bgMusic.play().catch(() => { }); }, { once: true });
+            const tryPlay = () => { bgMusic.play().catch(() => { }); };
+            document.addEventListener('click', tryPlay, { once: true });
+            document.addEventListener('touchstart', tryPlay, { once: true });
+            document.addEventListener('scroll', tryPlay, { once: true });
         });
 
         // ===== UPLOAD =====
@@ -1723,5 +1732,3 @@
 </body>
 
 </html>
-
-
