@@ -126,6 +126,20 @@
             }
         }
 
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 0 0px rgba(212, 175, 55, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            }
+
+            100% {
+                box-shadow: 0 0 0px rgba(212, 175, 55, 0);
+            }
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
@@ -1625,31 +1639,68 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(6px);
+  background: radial-gradient(ellipse at center, #1a1208 0%, #0d0d0d 100%);
 ">
-            <div style="
-    border: 1.5px solid rgba(255,255,255,0.4);
+            <canvas id="bokeh-canvas"
+                style="position: absolute; inset: 0; z-index: 0; pointer-events: none;"></canvas>
+            <div id="monogram-wrapper" style="
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+">
+                <div style="
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    border: 1px solid rgba(212,175,55,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.2rem;
-    animation: pulse-ring 2s ease infinite;
+    position: relative;
+    animation: pulse-gold 3s ease-in-out infinite;
   ">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="white" opacity="0.9">
-                    <path d="M8 5v14l11-7z" />
-                </svg>
+                    <div style="
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,175,55,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+                        <span style="
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-size: 3rem;
+        font-weight: 300;
+        color: #d4af37;
+        letter-spacing: 0.15em;
+        text-shadow: 0 0 30px rgba(212,175,55,0.4);
+      ">N &amp; H</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <p style="
+      color: rgba(212,175,55,0.9);
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin: 0 0 0.4rem 0;
+    ">26 Nisan 2026</p>
+                    <p style="
+      color: rgba(255,255,255,0.4);
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      margin: 0;
+    ">Davetiyeyi Aç</p>
+                </div>
             </div>
-            <p style="
-    color: rgba(255,255,255,0.75);
-    font-style: italic;
-    font-size: 0.95rem;
-    letter-spacing: 0.12em;
-    margin: 0;
-  ">Başlamak için dokunun</p>
         </div>
     </div>
 
@@ -2131,8 +2182,68 @@
             video.addEventListener('ended', openCurtain);
 
             const startScreen = document.getElementById('start-screen');
-            if (startScreen) {
-                startScreen.addEventListener('click', () => {
+            const monogramWrapper = document.getElementById('monogram-wrapper');
+            const bokehCanvas = document.getElementById('bokeh-canvas');
+            let bokehAnimId = null;
+
+            if (startScreen && bokehCanvas) {
+                const bctx = bokehCanvas.getContext('2d');
+                function fitBokeh() {
+                    bokehCanvas.width = startScreen.offsetWidth;
+                    bokehCanvas.height = startScreen.offsetHeight;
+                }
+                fitBokeh();
+                const bokehCount = 40 + Math.floor(Math.random() * 21);
+                const bokehParticles = [];
+                for (let i = 0; i < bokehCount; i++) {
+                    const u = Math.random();
+                    const cr = 212 + u * (255 - 212);
+                    const cg = 175 + u * (223 - 175);
+                    const cb = 55 + u * (100 - 55);
+                    const ca = 0.08 + Math.random() * (0.18 - 0.08);
+                    bokehParticles.push({
+                        x: Math.random() * bokehCanvas.width,
+                        y: Math.random() * bokehCanvas.height,
+                        radius: 4 + Math.random() * 76,
+                        phase: Math.random() * Math.PI * 2,
+                        vy: 0.15 + Math.random() * 0.35,
+                        freq: 0.8 + Math.random() * 1.2,
+                        color: `rgba(${Math.round(cr)},${Math.round(cg)},${Math.round(cb)},${ca})`
+                    });
+                }
+                let bokehT = 0;
+                function bokehFrame() {
+                    if (!startScreen || startScreen.style.display === 'none') return;
+                    bokehT += 0.016;
+                    bctx.clearRect(0, 0, bokehCanvas.width, bokehCanvas.height);
+                    const w = bokehCanvas.width;
+                    const h = bokehCanvas.height;
+                    for (const p of bokehParticles) {
+                        p.y -= p.vy;
+                        const sway = Math.sin(bokehT * p.freq + p.phase) * 0.9;
+                        p.x += sway * 0.12;
+                        if (p.y + p.radius < 0) {
+                            p.y = h + p.radius;
+                            p.x = Math.random() * w;
+                        }
+                        if (p.x < -p.radius) p.x = w + p.radius;
+                        if (p.x > w + p.radius) p.x = -p.radius;
+                        bctx.beginPath();
+                        bctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        bctx.fillStyle = p.color;
+                        bctx.fill();
+                    }
+                    bokehAnimId = requestAnimationFrame(bokehFrame);
+                }
+                bokehAnimId = requestAnimationFrame(bokehFrame);
+            }
+
+            if (monogramWrapper && startScreen) {
+                monogramWrapper.addEventListener('click', () => {
+                    if (bokehAnimId) {
+                        cancelAnimationFrame(bokehAnimId);
+                        bokehAnimId = null;
+                    }
                     startScreen.style.display = 'none';
                     video.play().catch(() => { });
                     const bgm = document.getElementById('background-music');
