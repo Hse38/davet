@@ -2149,7 +2149,6 @@
             let animationFrameId = null;
             let firstFrameDrawn = false;
             let isOpen = false;
-            let introWaitingForTap = true;
             let inviteOpened = false;
 
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -2217,12 +2216,6 @@
                 processFrame();
             });
 
-            function tryMutedIntroAutoplay() {
-                video.play().catch(() => { });
-            }
-            video.addEventListener('canplay', tryMutedIntroAutoplay, { once: true });
-            setTimeout(tryMutedIntroAutoplay, 150);
-
             function paintStaticIntroFrame() {
                 if (isOpen) return;
                 resizeCanvas();
@@ -2239,14 +2232,7 @@
                 curtainIntro.classList.add('fade-out');
                 setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
-            video.addEventListener('ended', () => {
-                if (introWaitingForTap && !isOpen) {
-                    video.currentTime = 0;
-                    video.play().catch(() => { });
-                    return;
-                }
-                openCurtain();
-            });
+            video.addEventListener('ended', openCurtain);
 
             const startScreen = document.getElementById('start-screen');
             const monogramWrapper = document.getElementById('monogram-wrapper');
@@ -2257,7 +2243,6 @@
                     if (inviteOpened) return;
                     inviteOpened = true;
                     if (e && e.type === 'touchend') e.preventDefault();
-                    introWaitingForTap = false;
                     const chromaFill = document.getElementById('curtain-chroma-fill');
                     if (chromaFill) chromaFill.style.display = 'none';
                     startScreen.style.display = 'none';
