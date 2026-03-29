@@ -1617,8 +1617,8 @@
 
     <!-- Music -->
     <audio id="background-music" muted loop preload="auto">
-        <source src="music.ogg" type="audio/ogg">
         <source src="music.mp3" type="audio/mpeg">
+        <source src="music.ogg" type="audio/ogg">
     </audio>
 
     <button type="button" id="music-toggle" class="music-toggle" aria-pressed="false" aria-label="Müziği aç">
@@ -1627,9 +1627,9 @@
 
     <!-- Video Intro -->
     <div class="curtain-intro" id="curtain-intro">
-        <video muted playsinline id="curtain-video" preload="auto">
-            <source src="video.webm" type="video/webm">
+        <video muted playsinline webkit-playsinline id="curtain-video" preload="auto">
             <source src="video_v2.mp4" type="video/mp4">
+            <source src="video.webm" type="video/webm">
         </video>
         <canvas id="curtain-canvas"></canvas>
         <div id="start-screen" style="
@@ -2125,6 +2125,8 @@
             let animationFrameId = null;
             let firstFrameDrawn = false;
             let isOpen = false;
+            let introWaitingForTap = true;
+            let inviteOpened = false;
 
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 
@@ -2191,6 +2193,12 @@
                 processFrame();
             });
 
+            function tryMutedIntroAutoplay() {
+                video.play().catch(() => { });
+            }
+            video.addEventListener('canplay', tryMutedIntroAutoplay, { once: true });
+            setTimeout(tryMutedIntroAutoplay, 150);
+
             function paintStaticIntroFrame() {
                 if (isOpen) return;
                 resizeCanvas();
@@ -2207,14 +2215,25 @@
                 curtainIntro.classList.add('fade-out');
                 setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
-            video.addEventListener('ended', openCurtain);
+            video.addEventListener('ended', () => {
+                if (introWaitingForTap && !isOpen) {
+                    video.currentTime = 0;
+                    video.play().catch(() => { });
+                    return;
+                }
+                openCurtain();
+            });
 
             const startScreen = document.getElementById('start-screen');
             const monogramWrapper = document.getElementById('monogram-wrapper');
             const curtainCanvasEl = document.getElementById('curtain-canvas');
 
             if (monogramWrapper && startScreen) {
-                monogramWrapper.addEventListener('click', () => {
+                function runOpenInvitation(e) {
+                    if (inviteOpened) return;
+                    inviteOpened = true;
+                    if (e && e.type === 'touchend') e.preventDefault();
+                    introWaitingForTap = false;
                     startScreen.style.display = 'none';
                     if (curtainCanvasEl) {
                         curtainCanvasEl.style.transition = 'filter 1s ease';
@@ -2224,8 +2243,14 @@
                             });
                         });
                     }
+                    video.currentTime = 0;
                     video.play().catch(() => { });
                     startMusicWithIntroVideo();
+                }
+                monogramWrapper.addEventListener('touchend', runOpenInvitation, { passive: false });
+                monogramWrapper.addEventListener('click', (e) => {
+                    if (inviteOpened) return;
+                    runOpenInvitation(e);
                 });
             }
         }
