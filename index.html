@@ -1674,11 +1674,12 @@
     ">
                         <span style="
         font-family: 'Cormorant Garamond', 'Georgia', serif;
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 300;
         color: #d4af37;
         letter-spacing: 0.15em;
         text-shadow: 0 0 30px rgba(212,175,55,0.4);
+        white-space: nowrap;
       ">N &amp; H</span>
                     </div>
                 </div>
@@ -2193,22 +2194,18 @@
                     bokehCanvas.height = startScreen.offsetHeight;
                 }
                 fitBokeh();
-                const bokehCount = 40 + Math.floor(Math.random() * 21);
+                const bokehCount = 80;
                 const bokehParticles = [];
                 for (let i = 0; i < bokehCount; i++) {
-                    const u = Math.random();
-                    const cr = 212 + u * (255 - 212);
-                    const cg = 175 + u * (223 - 175);
-                    const cb = 55 + u * (100 - 55);
-                    const ca = 0.08 + Math.random() * (0.18 - 0.08);
+                    const ca = (0.08 + Math.random() * (0.18 - 0.08)) * 0.5;
                     bokehParticles.push({
                         x: Math.random() * bokehCanvas.width,
                         y: Math.random() * bokehCanvas.height,
-                        radius: 4 + Math.random() * 76,
+                        radius: 2 + Math.random() * (25 - 2),
                         phase: Math.random() * Math.PI * 2,
                         vy: 0.15 + Math.random() * 0.35,
                         freq: 0.8 + Math.random() * 1.2,
-                        color: `rgba(${Math.round(cr)},${Math.round(cg)},${Math.round(cb)},${ca})`
+                        color: `rgba(255,215,80,${ca})`
                     });
                 }
                 let bokehT = 0;
