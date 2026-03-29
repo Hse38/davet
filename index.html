@@ -112,6 +112,15 @@
             z-index: 0;
         }
 
+        /* Tıklamadan önce chroma boşluklarında davetiye / siyah overlay sızmasın; flu perde tonu */
+        #curtain-chroma-fill {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 100% 85% at 50% 45%, #6b2a32 0%, #4a1a22 45%, #2a1016 100%);
+        }
+
         #curtain-canvas {
             position: absolute;
             inset: 0;
@@ -1645,6 +1654,7 @@
             <source src="video_v2.mp4" type="video/mp4">
             <source src="video.webm" type="video/webm">
         </video>
+        <div id="curtain-chroma-fill" aria-hidden="true"></div>
         <canvas id="curtain-canvas"></canvas>
         <div id="start-screen" style="
   position: absolute;
@@ -2248,6 +2258,8 @@
                     inviteOpened = true;
                     if (e && e.type === 'touchend') e.preventDefault();
                     introWaitingForTap = false;
+                    const chromaFill = document.getElementById('curtain-chroma-fill');
+                    if (chromaFill) chromaFill.style.display = 'none';
                     startScreen.style.display = 'none';
                     if (curtainCanvasEl) {
                         curtainCanvasEl.style.transition = 'filter 1s ease';
