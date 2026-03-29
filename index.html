@@ -2171,8 +2171,13 @@
             video.addEventListener('play', () => {
                 resizeCanvas();
                 processFrame();
-                startMusicWithIntroVideo();
             });
+
+            function tryMutedIntroAutoplay() {
+                video.play().catch(() => { });
+            }
+            video.addEventListener('canplay', tryMutedIntroAutoplay, { once: true });
+            setTimeout(tryMutedIntroAutoplay, 100);
 
             let isOpen = false;
 
@@ -2201,11 +2206,7 @@
                         });
                     }
                     video.play().catch(() => { });
-                    const bgm = document.getElementById('background-music');
-                    if (bgm) {
-                        bgm.muted = false;
-                        bgm.play().catch(() => { });
-                    }
+                    startMusicWithIntroVideo();
                 });
             }
         }
