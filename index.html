@@ -112,13 +112,13 @@
             z-index: 0;
         }
 
-        /* Tıklamadan önce chroma boşluklarında davetiye / siyah overlay sızmasın; flu perde tonu */
+        /* Tıklamadan önce chroma boşluklarında hero/siyah sızmasın; sayfa zeminiyle aynı krem (kırmızı blok olmasın) */
         #curtain-chroma-fill {
             position: absolute;
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background: radial-gradient(ellipse 100% 85% at 50% 45%, #6b2a32 0%, #4a1a22 45%, #2a1016 100%);
+            background: linear-gradient(180deg, #f5efe8 0%, #efe5da 100%);
         }
 
         #curtain-canvas {
