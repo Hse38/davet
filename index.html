@@ -2054,7 +2054,19 @@
                 animationFrameId = requestAnimationFrame(processFrame);
             }
 
-            video.addEventListener('play', () => { resizeCanvas(); processFrame(); });
+            function startMusicWithIntroVideo() {
+                const bgm = document.getElementById('background-music');
+                if (bgm) {
+                    bgm.muted = false;
+                    bgm.play().catch(() => { });
+                }
+            }
+
+            video.addEventListener('play', () => {
+                resizeCanvas();
+                processFrame();
+                startMusicWithIntroVideo();
+            });
 
             let isOpen = false;
 
