@@ -1584,7 +1584,7 @@
     <canvas id="sparkle-canvas"></canvas>
 
     <!-- Music -->
-    <audio id="background-music" autoplay muted loop preload="auto">
+    <audio id="background-music" muted loop preload="auto">
         <source src="music.ogg" type="audio/ogg">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
@@ -2008,125 +2008,65 @@
             animate();
         })();
 
-        // ===== CURTAIN =====
+        // ===== CURTAIN: anında kalkar, intro videosu hemen play() =====
         function initCurtain() {
             const curtainIntro = document.getElementById('curtain-intro');
             const video = document.getElementById('curtain-video');
-            const canvas = document.getElementById('curtain-canvas');
-            if (!video || !curtainIntro || !canvas) return;
+            const overlay = document.getElementById('initial-overlay');
 
-            const ctx = canvas.getContext('2d', { willReadFrequently: true });
-            let animationFrameId = null;
-            let firstFrameDrawn = false;
-
-            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            function processFrame() {
-                if (video.paused || video.ended) return;
-                const vw = video.videoWidth || canvas.width;
-                const vh = video.videoHeight || canvas.height;
-                const scale = Math.max(canvas.width / vw, canvas.height / vh);
-                const w = vw * scale, h = vh * scale;
-                const x = (canvas.width - w) / 2, y = (canvas.height - h) / 2;
-                ctx.drawImage(video, x, y, w, h);
-
-                if (!firstFrameDrawn) {
-                    firstFrameDrawn = true;
-                    const overlay = document.getElementById('initial-overlay');
-                    if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
-                }
-
-                try {
-                    const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const l = frame.data.length / 4;
-                    for (let i = 0; i < l; i++) {
-                        const r = frame.data[i * 4], g = frame.data[i * 4 + 1], b = frame.data[i * 4 + 2];
-                        if (g > 80 && g > r * 1.1 && g > b * 1.1) {
-                            let diff = g - Math.max(r, b);
-                            if (diff > 40) frame.data[i * 4 + 3] = 0;
-                            else if (diff > 15) frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
-                        }
-                    }
-                    ctx.putImageData(frame, 0, 0);
-                } catch (e) { }
-                animationFrameId = requestAnimationFrame(processFrame);
+            if (overlay) {
+                overlay.style.opacity = '0';
+                overlay.style.display = 'none';
             }
-
-            video.addEventListener('play', () => { resizeCanvas(); processFrame(); });
-
-            setTimeout(() => {
-                const p = video.play();
-                if (p !== undefined) {
-                    p.catch(() => {
-                        ctx.fillStyle = "rgba(44,42,40,0.8)";
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        ctx.font = '18px "Playfair Display", Georgia, serif'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
-                        ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
-                        const startOnTouch = () => {
-                            if (!isOpen && video.paused) {
-                                video.play().catch(() => { });
-                            }
-                        };
-                        document.addEventListener('click', startOnTouch, { once: true });
-                        document.addEventListener('touchstart', startOnTouch, { once: true });
-                    });
-                }
-            }, 5);
-
-            let isOpen = false;
-            function openCurtain() {
-                if (isOpen) return;
-                isOpen = true;
-                if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                curtainIntro.classList.add('fade-out');
-                setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
+            if (curtainIntro) {
+                curtainIntro.style.display = 'none';
+                curtainIntro.style.pointerEvents = 'none';
             }
-            video.addEventListener('ended', openCurtain);
+            if (video) {
+                video.play().catch(() => { });
+            }
         }
 
-        if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(initCurtain, 100);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') initCurtain();
         else window.addEventListener('load', initCurtain);
 
-        // ===== BACKGROUND MUSIC: autoplay muted → ilk dokunuş veya scroll’da ses =====
-        const bgMusic = document.getElementById('background-music');
+        // ===== BACKGROUND MUSIC =====
+        const music = document.getElementById('background-music');
         const musicToggle = document.getElementById('music-toggle');
-        if (bgMusic && musicToggle) {
-            bgMusic.volume = 0.2;
-            bgMusic.muted = true;
+        if (music && musicToggle) {
+            music.volume = 0.2;
+            music.muted = false;
+
+            function startMusic() {
+                music.play().catch(() => { });
+                document.removeEventListener('touchstart', startMusic);
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('scroll', startMusic);
+            }
+
+            document.addEventListener('touchstart', startMusic, { once: true });
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('scroll', startMusic, { once: true });
 
             function syncMusicToggle() {
-                const playing = !bgMusic.paused;
+                const playing = !music.paused;
                 musicToggle.classList.toggle('is-playing', playing);
                 musicToggle.setAttribute('aria-pressed', String(playing));
                 musicToggle.setAttribute('aria-label', playing ? 'Müziği duraklat' : 'Müziği aç');
             }
 
-            function unmuteAfterFirstInteract() {
-                bgMusic.muted = false;
-                document.removeEventListener('touchstart', unmuteAfterFirstInteract);
-                document.removeEventListener('scroll', unmuteAfterFirstInteract);
-                window.removeEventListener('scroll', unmuteAfterFirstInteract);
-            }
-
-            document.addEventListener('touchstart', unmuteAfterFirstInteract, { passive: true });
-            document.addEventListener('scroll', unmuteAfterFirstInteract, { passive: true });
-            window.addEventListener('scroll', unmuteAfterFirstInteract, { passive: true });
-
             musicToggle.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play().then(syncMusicToggle).catch(() => { });
+                if (music.paused) {
+                    music.play().then(syncMusicToggle).catch(() => { });
                 } else {
-                    bgMusic.pause();
+                    music.pause();
                     syncMusicToggle();
                 }
             });
 
-            bgMusic.addEventListener('play', syncMusicToggle);
-            bgMusic.addEventListener('pause', syncMusicToggle);
+            music.addEventListener('play', syncMusicToggle);
+            music.addEventListener('pause', syncMusicToggle);
             syncMusicToggle();
-            bgMusic.play().catch(() => { });
         }
 
         // ===== UPLOAD =====
