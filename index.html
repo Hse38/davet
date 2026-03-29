@@ -1627,7 +1627,7 @@
 
     <!-- Video Intro -->
     <div class="curtain-intro" id="curtain-intro">
-        <video muted playsinline id="curtain-video" preload="metadata">
+        <video muted playsinline id="curtain-video" preload="auto">
             <source src="video.webm" type="video/webm">
             <source src="video_v2.mp4" type="video/mp4">
         </video>
@@ -2124,15 +2124,14 @@
             const ctx = canvas.getContext('2d', { willReadFrequently: true });
             let animationFrameId = null;
             let firstFrameDrawn = false;
+            let isOpen = false;
 
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
 
-            function processFrame() {
-                if (video.paused || video.ended) return;
-                const vw = video.videoWidth || canvas.width;
-                const vh = video.videoHeight || canvas.height;
+            function paintCurtainFrameFromVideo() {
+                const vw = video.videoWidth || 0;
+                const vh = video.videoHeight || 0;
+                if (!vw || !vh) return;
                 const scale = Math.max(canvas.width / vw, canvas.height / vh);
                 const w = vw * scale, h = vh * scale;
                 const x = (canvas.width - w) / 2, y = (canvas.height - h) / 2;
@@ -2157,6 +2156,25 @@
                     }
                     ctx.putImageData(frame, 0, 0);
                 } catch (e) { }
+            }
+
+            function repaintStaticCurtainIfNeeded() {
+                if (isOpen) return;
+                if (!video.paused && !video.ended) return;
+                if (!(video.videoWidth || 0)) return;
+                paintCurtainFrameFromVideo();
+            }
+
+            function onCurtainResize() {
+                resizeCanvas();
+                repaintStaticCurtainIfNeeded();
+            }
+            window.addEventListener('resize', onCurtainResize);
+            resizeCanvas();
+
+            function processFrame() {
+                if (video.paused || video.ended) return;
+                paintCurtainFrameFromVideo();
                 animationFrameId = requestAnimationFrame(processFrame);
             }
 
@@ -2173,7 +2191,14 @@
                 processFrame();
             });
 
-            let isOpen = false;
+            function paintStaticIntroFrame() {
+                if (isOpen) return;
+                resizeCanvas();
+                paintCurtainFrameFromVideo();
+            }
+            video.addEventListener('loadeddata', paintStaticIntroFrame);
+            video.addEventListener('canplay', paintStaticIntroFrame);
+            if (video.readyState >= 2) paintStaticIntroFrame();
 
             function openCurtain() {
                 if (isOpen) return;
