@@ -1584,7 +1584,7 @@
     <canvas id="sparkle-canvas"></canvas>
 
     <!-- Music -->
-    <audio id="background-music" loop preload="auto">
+    <audio id="background-music" autoplay muted loop preload="auto">
         <source src="music.ogg" type="audio/ogg">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
@@ -2084,16 +2084,18 @@
                 setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
             video.addEventListener('ended', openCurtain);
+            setTimeout(openCurtain, 2000);
         }
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(initCurtain, 100);
         else window.addEventListener('load', initCurtain);
 
-        // ===== BACKGROUND MUSIC (kullanıcı jesti — iOS Safari uyumlu) =====
+        // ===== BACKGROUND MUSIC: autoplay muted → ilk dokunuş veya scroll’da ses =====
         const bgMusic = document.getElementById('background-music');
         const musicToggle = document.getElementById('music-toggle');
         if (bgMusic && musicToggle) {
             bgMusic.volume = 0.2;
+            bgMusic.muted = true;
 
             function syncMusicToggle() {
                 const playing = !bgMusic.paused;
@@ -2101,6 +2103,17 @@
                 musicToggle.setAttribute('aria-pressed', String(playing));
                 musicToggle.setAttribute('aria-label', playing ? 'Müziği duraklat' : 'Müziği aç');
             }
+
+            function unmuteAfterFirstInteract() {
+                bgMusic.muted = false;
+                document.removeEventListener('touchstart', unmuteAfterFirstInteract);
+                document.removeEventListener('scroll', unmuteAfterFirstInteract);
+                window.removeEventListener('scroll', unmuteAfterFirstInteract);
+            }
+
+            document.addEventListener('touchstart', unmuteAfterFirstInteract, { passive: true });
+            document.addEventListener('scroll', unmuteAfterFirstInteract, { passive: true });
+            window.addEventListener('scroll', unmuteAfterFirstInteract, { passive: true });
 
             musicToggle.addEventListener('click', () => {
                 if (bgMusic.paused) {
@@ -2114,6 +2127,7 @@
             bgMusic.addEventListener('play', syncMusicToggle);
             bgMusic.addEventListener('pause', syncMusicToggle);
             syncMusicToggle();
+            bgMusic.play().catch(() => { });
         }
 
         // ===== UPLOAD =====
