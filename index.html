@@ -2008,26 +2008,86 @@
             animate();
         })();
 
-        // ===== CURTAIN: anında kalkar, intro videosu hemen play() =====
+        // ===== CURTAIN: intro videosu canvas’ta, bitince perde açılır =====
         function initCurtain() {
             const curtainIntro = document.getElementById('curtain-intro');
             const video = document.getElementById('curtain-video');
-            const overlay = document.getElementById('initial-overlay');
+            const canvas = document.getElementById('curtain-canvas');
+            if (!video || !curtainIntro || !canvas) return;
 
-            if (overlay) {
-                overlay.style.opacity = '0';
-                overlay.style.display = 'none';
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            let animationFrameId = null;
+            let firstFrameDrawn = false;
+
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function processFrame() {
+                if (video.paused || video.ended) return;
+                const vw = video.videoWidth || canvas.width;
+                const vh = video.videoHeight || canvas.height;
+                const scale = Math.max(canvas.width / vw, canvas.height / vh);
+                const w = vw * scale, h = vh * scale;
+                const x = (canvas.width - w) / 2, y = (canvas.height - h) / 2;
+                ctx.drawImage(video, x, y, w, h);
+
+                if (!firstFrameDrawn) {
+                    firstFrameDrawn = true;
+                    const overlay = document.getElementById('initial-overlay');
+                    if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
+                }
+
+                try {
+                    const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const l = frame.data.length / 4;
+                    for (let i = 0; i < l; i++) {
+                        const r = frame.data[i * 4], g = frame.data[i * 4 + 1], b = frame.data[i * 4 + 2];
+                        if (g > 80 && g > r * 1.1 && g > b * 1.1) {
+                            let diff = g - Math.max(r, b);
+                            if (diff > 40) frame.data[i * 4 + 3] = 0;
+                            else if (diff > 15) frame.data[i * 4 + 3] = 255 - ((diff - 15) / 25 * 255);
+                        }
+                    }
+                    ctx.putImageData(frame, 0, 0);
+                } catch (e) { }
+                animationFrameId = requestAnimationFrame(processFrame);
             }
-            if (curtainIntro) {
-                curtainIntro.style.display = 'none';
-                curtainIntro.style.pointerEvents = 'none';
+
+            video.addEventListener('play', () => { resizeCanvas(); processFrame(); });
+
+            let isOpen = false;
+
+            setTimeout(() => {
+                const p = video.play();
+                if (p !== undefined) {
+                    p.catch(() => {
+                        ctx.fillStyle = "rgba(44,42,40,0.8)";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.font = '18px "Playfair Display", Georgia, serif'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
+                        ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
+                        const startOnTouch = () => {
+                            if (!isOpen && video.paused) {
+                                video.play().catch(() => { });
+                            }
+                        };
+                        document.addEventListener('click', startOnTouch, { once: true });
+                        document.addEventListener('touchstart', startOnTouch, { once: true });
+                    });
+                }
+            }, 5);
+
+            function openCurtain() {
+                if (isOpen) return;
+                isOpen = true;
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                curtainIntro.classList.add('fade-out');
+                setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
-            if (video) {
-                video.play().catch(() => { });
-            }
+            video.addEventListener('ended', openCurtain);
         }
 
-        if (document.readyState === 'complete' || document.readyState === 'interactive') initCurtain();
+        if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(initCurtain, 100);
         else window.addEventListener('load', initCurtain);
 
         // ===== BACKGROUND MUSIC =====
