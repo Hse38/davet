@@ -109,6 +109,23 @@
             object-fit: cover;
         }
 
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
@@ -1600,6 +1617,40 @@
             <source src="video_v2.mp4" type="video/mp4">
         </video>
         <canvas id="curtain-canvas"></canvas>
+        <div id="start-screen" style="
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+">
+            <div style="
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    animation: pulse-ring 2s ease infinite;
+  ">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="white" opacity="0.9">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+            </div>
+            <p style="
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    margin: 0;
+  ">Başlamak için dokunun</p>
+        </div>
     </div>
 
     <!-- Hero -->
@@ -2070,25 +2121,6 @@
 
             let isOpen = false;
 
-            setTimeout(() => {
-                const p = video.play();
-                if (p !== undefined) {
-                    p.catch(() => {
-                        ctx.fillStyle = "rgba(44,42,40,0.8)";
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        ctx.font = '18px "Playfair Display", Georgia, serif'; ctx.fillStyle = '#B59A7A'; ctx.textAlign = 'center';
-                        ctx.fillText('Perdeyi açmak için dokunun', canvas.width / 2, canvas.height / 2);
-                        const startOnTouch = () => {
-                            if (!isOpen && video.paused) {
-                                video.play().catch(() => { });
-                            }
-                        };
-                        document.addEventListener('click', startOnTouch, { once: true });
-                        document.addEventListener('touchstart', startOnTouch, { once: true });
-                    });
-                }
-            }, 5);
-
             function openCurtain() {
                 if (isOpen) return;
                 isOpen = true;
@@ -2097,6 +2129,20 @@
                 setTimeout(() => { curtainIntro.style.display = 'none'; }, 1500);
             }
             video.addEventListener('ended', openCurtain);
+
+            const startScreen = document.getElementById('start-screen');
+            if (startScreen) {
+                startScreen.addEventListener('click', () => {
+                    startScreen.style.display = 'none';
+                    video.play().catch(() => { });
+                    const bgm = document.getElementById('background-music');
+                    if (bgm) {
+                        bgm.muted = false;
+                        bgm.play().catch(() => { });
+                    }
+                    setTimeout(openCurtain, 2000);
+                });
+            }
         }
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(initCurtain, 100);
