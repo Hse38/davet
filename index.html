@@ -107,6 +107,7 @@
             height: 100%;
             display: block;
             object-fit: cover;
+            filter: blur(12px) brightness(0.6);
         }
 
         @keyframes pulse-ring {
@@ -1639,10 +1640,8 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: radial-gradient(ellipse at center, #1a1208 0%, #0d0d0d 100%);
+  background: none;
 ">
-            <canvas id="bokeh-canvas"
-                style="position: absolute; inset: 0; z-index: 0; pointer-events: none;"></canvas>
             <div id="monogram-wrapper" style="
   position: relative;
   z-index: 1;
@@ -1651,6 +1650,10 @@
   align-items: center;
   gap: 1.5rem;
   cursor: pointer;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
 ">
                 <div style="
     width: 160px;
@@ -2184,64 +2187,19 @@
 
             const startScreen = document.getElementById('start-screen');
             const monogramWrapper = document.getElementById('monogram-wrapper');
-            const bokehCanvas = document.getElementById('bokeh-canvas');
-            let bokehAnimId = null;
-
-            if (startScreen && bokehCanvas) {
-                const bctx = bokehCanvas.getContext('2d');
-                function fitBokeh() {
-                    bokehCanvas.width = startScreen.offsetWidth;
-                    bokehCanvas.height = startScreen.offsetHeight;
-                }
-                fitBokeh();
-                const bokehCount = 80;
-                const bokehParticles = [];
-                for (let i = 0; i < bokehCount; i++) {
-                    const ca = (0.08 + Math.random() * (0.18 - 0.08)) * 0.5;
-                    bokehParticles.push({
-                        x: Math.random() * bokehCanvas.width,
-                        y: Math.random() * bokehCanvas.height,
-                        radius: 2 + Math.random() * (25 - 2),
-                        phase: Math.random() * Math.PI * 2,
-                        vy: 0.15 + Math.random() * 0.35,
-                        freq: 0.8 + Math.random() * 1.2,
-                        color: `rgba(255,215,80,${ca})`
-                    });
-                }
-                let bokehT = 0;
-                function bokehFrame() {
-                    if (!startScreen || startScreen.style.display === 'none') return;
-                    bokehT += 0.016;
-                    bctx.clearRect(0, 0, bokehCanvas.width, bokehCanvas.height);
-                    const w = bokehCanvas.width;
-                    const h = bokehCanvas.height;
-                    for (const p of bokehParticles) {
-                        p.y -= p.vy;
-                        const sway = Math.sin(bokehT * p.freq + p.phase) * 0.9;
-                        p.x += sway * 0.12;
-                        if (p.y + p.radius < 0) {
-                            p.y = h + p.radius;
-                            p.x = Math.random() * w;
-                        }
-                        if (p.x < -p.radius) p.x = w + p.radius;
-                        if (p.x > w + p.radius) p.x = -p.radius;
-                        bctx.beginPath();
-                        bctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                        bctx.fillStyle = p.color;
-                        bctx.fill();
-                    }
-                    bokehAnimId = requestAnimationFrame(bokehFrame);
-                }
-                bokehAnimId = requestAnimationFrame(bokehFrame);
-            }
+            const curtainCanvasEl = document.getElementById('curtain-canvas');
 
             if (monogramWrapper && startScreen) {
                 monogramWrapper.addEventListener('click', () => {
-                    if (bokehAnimId) {
-                        cancelAnimationFrame(bokehAnimId);
-                        bokehAnimId = null;
-                    }
                     startScreen.style.display = 'none';
+                    if (curtainCanvasEl) {
+                        curtainCanvasEl.style.transition = 'filter 1s ease';
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                curtainCanvasEl.style.filter = 'blur(0px) brightness(1)';
+                            });
+                        });
+                    }
                     video.play().catch(() => { });
                     const bgm = document.getElementById('background-music');
                     if (bgm) {
