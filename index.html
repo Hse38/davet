@@ -2205,7 +2205,8 @@
                             });
                         });
                     }
-                    video.play().catch(() => { });
+                    video.pause();
+                    openCurtain();
                     startMusicWithIntroVideo();
                 });
             }
