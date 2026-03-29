@@ -2173,12 +2173,6 @@
                 processFrame();
             });
 
-            function tryMutedIntroAutoplay() {
-                video.play().catch(() => { });
-            }
-            video.addEventListener('canplay', tryMutedIntroAutoplay, { once: true });
-            setTimeout(tryMutedIntroAutoplay, 100);
-
             let isOpen = false;
 
             function openCurtain() {
